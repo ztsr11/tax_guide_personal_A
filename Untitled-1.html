@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>个体工商户经营所得个税申报指引</title>
+<style>
+  /* ========== 基础重置 ========== */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+    background: #f0f2f5;
+    color: #333;
+    font-size: 15px;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ========== 容器 ========== */
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 0 30px 0;
+    background: #fff;
+    min-height: 100vh;
+  }
+
+  /* ========== 封面区 ========== */
+  .hero {
+    background: linear-gradient(135deg, #1565C0 0%, #1E88E5 50%, #42A5F5 100%);
+    color: #fff;
+    text-align: center;
+    padding: 48px 24px 40px;
+  }
+  .hero h1 {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+  .hero .subtitle {
+    font-size: 15px;
+    opacity: 0.85;
+    margin-bottom: 16px;
+    letter-spacing: 2px;
+  }
+  .hero .slogan {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 20px;
+    padding: 6px 20px;
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+
+  /* ========== 内容区通用 ========== */
+  .content { padding: 0 16px; }
+
+  /* ========== 章节卡片 ========== */
+  .card {
+    background: #f8fafe;
+    border-radius: 12px;
+    padding: 20px 18px;
+    margin-top: 20px;
+    border: 1px solid #e8eef6;
+  }
+  .card-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1565C0;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e3f2fd;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-title .icon {
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  /* ========== 表格 ========== */
+  .table-wrap { overflow-x: auto; margin: 10px 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  table th {
+    background: #1565C0;
+    color: #fff;
+    font-weight: 600;
+    padding: 10px 8px;
+    text-align: center;
+    white-space: nowrap;
+  }
+  table td {
+    padding: 10px 8px;
+    text-align: center;
+    border-bottom: 1px solid #e8eef6;
+  }
+  table tr:nth-child(even) td { background: #f0f6ff; }
+  table tr:last-child td { border-bottom: none; }
+
+  /* ========== 提示框 ========== */
+  .alert {
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin: 14px 0 6px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .alert-red {
+    background: #fff5f5;
+    border-left: 4px solid #e53935;
+    color: #c62828;
+  }
+  .alert-yellow {
+    background: #fffde7;
+    border-left: 4px solid #f9a825;
+    color: #8d6e00;
+  }
+  .alert-green {
+    background: #e8f5e9;
+    border-left: 4px solid #43a047;
+    color: #2e7d32;
+  }
+  .alert-blue {
+    background: #e3f2fd;
+    border-left: 4px solid #1565C0;
+    color: #0d47a1;
+  }
+
+  /* ========== 步骤列表 ========== */
+  .steps { list-style: none; counter-reset: step; margin: 10px 0; }
+  .steps li {
+    counter-increment: step;
+    position: relative;
+    padding: 12px 12px 12px 48px;
+    margin-bottom: 8px;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #e8eef6;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    width: 26px;
+    height: 26px;
+    background: #1565C0;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+  .steps li .link {
+    color: #1565C0;
+    word-break: break-all;
+  }
+  .steps li .path {
+    display: inline;
+    background: #e3f2fd;
+    color: #1565C0;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  /* ========== 错误卡片 ========== */
+  .error-item {
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #ffcdd2;
+    padding: 14px 14px;
+    margin-bottom: 10px;
+  }
+  .error-item .wrong {
+    color: #c62828;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .error-item .wrong .x {
+    flex-shrink: 0;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: #e53935;
+    color: #fff;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 20px;
+    font-size: 12px;
+    margin-top: 2px;
+  }
+  .error-item .right {
+    color: #2e7d32;
+    font-size: 14px;
+    padding-left: 26px;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .error-item .right::before {
+    content: "✅";
+    flex-shrink: 0;
+  }
+
+  /* ========== 底部 ========== */
+  .footer {
+    margin-top: 28px;
+    padding: 20px 16px;
+    text-align: center;
+    color: #9e9e9e;
+    font-size: 12px;
+    line-height: 1.8;
+    border-top: 1px solid #eee;
+  }
+
+  /* ========== 分隔用 ========== */
+  .sep { height: 6px; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ==================== 封面 ==================== -->
+  <div class="hero">
+    <h1>个体工商户<br>经营所得个税申报指引</h1>
+    <div class="subtitle">季度预缴 · 年度汇算</div>
+    <div class="slogan">⏰ 按时申报，避免滞纳金！</div>
+  </div>
+
+  <div class="content">
+
+    <!-- ==================== 申报时间 ==================== -->
+    <div class="card">
+      <div class="card-title"><span class="icon">📅</span> 申报时间提醒</div>
+      <div class="table-wrap">
+        <table>
+          <tr>
+            <th>申报类型</th>
+            <th>申报期限</th>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">季度预缴<br>（A表）</td>
+            <td style="text-align:left; font-size:13px;">
+              第一季度：<b>4月15日前</b><br>
+              第二季度：<b>7月15日前</b><br>
+              第三季度：<b>10月15日前</b><br>
+              第四季度：<b>次年1月15日前</b>
+            </td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">年度汇算清缴<br>（B表）</td>
+            <td><b>次年3月31日前</b></td>
+          </tr>
+        </table>
+      </div>
+      <div class="alert alert-red">
+        ⚠️ <b>逾期未申报将产生滞纳金，每日万分之五！</b>遇法定节假日顺延，以系统提示为准。
+      </div>
+    </div>
+
+    <!-- ==================== 税率表 ==================== -->
+    <div class="card">
+      <div class="card-title"><span class="icon">📊</span> 经营所得适用税率（5级超额累进）</div>
+      <div class="table-wrap">
+        <table>
+          <tr>
+            <th>级数</th>
+            <th>全年应纳税所得额</th>
+            <th>税率</th>
+            <th>速算扣除数</th>
+          </tr>
+          <tr><td>1</td><td>≤ 3万元</td><td>5%</td><td>0</td></tr>
+          <tr><td>2</td><td>3万～9万</td><td>10%</td><td>1,500</td></tr>
+          <tr><td>3</td><td>9万～30万</td><td>20%</td><td>10,500</td></tr>
+          <tr><td>4</td><td>30万～50万</td><td>30%</td><td>40,500</td></tr>
+          <tr><td>5</td><td>&gt; 50万</td><td>35%</td><td>65,500</td></tr>
+        </table>
+      </div>
+      <div class="alert alert-green">
+        🎉 <b>减半优惠政策：</b>2023年1月1日至2027年12月31日，个体工商户年应纳税所得额不超过200万元的部分，<b>减半征收个人所得税</b>！可与其他优惠叠加享受。
+      </div>
+    </div>
+
+    <!-- ==================== 网页端步骤 ==================== -->
+    <div class="card">
+      <div class="card-title"><span class="icon">💻</span> 网页端申报步骤</div>
+      <p style="font-size:13px; color:#666; margin-bottom:12px;">适用于个体户本人自行申报</p>
+      <ol class="steps">
+        <li>打开浏览器，访问自然人电子税务局：<br><span class="link">https://etax.chinatax.gov.cn</span></li>
+        <li>点击右上角 <span class="path">登录</span>，使用账号密码或个税APP扫码登录</li>
+        <li>进入 <span class="path">我要办税</span> → <span class="path">税费申报与缴纳</span></li>
+        <li>选择 <span class="path">经营所得个人所得税预缴申报（A表）</span></li>
+        <li>确认<b>税款所属期</b>（即当前申报的季度）</li>
+        <li>按实际情况填写：<b>收入总额、成本费用、应纳税所得额</b></li>
+        <li>系统自动计算税额，<b>仔细核对</b>后点击 <span class="path">申报</span></li>
+        <li>申报成功后，进入 <span class="path">我要缴税</span> 完成税款缴纳</li>
+        <li>下载或截图保存<b>申报完成凭证</b></li>
+      </ol>
+      <div class="alert alert-yellow">
+        💡 <b>首次申报前</b>，请确认已完成税务登记，并确认征收方式为"查账征收"或"核定征收"——两者填报方式不同！
+      </div>
+    </div>
+
+    <!-- ==================== 扣缴端步骤 ==================== -->
+    <div class="card">
+      <div class="card-title"><span class="icon">🖥️</span> 扣缴端申报步骤</div>
+      <p style="font-size:13px; color:#666; margin-bottom:12px;">适用于有代账会计的情况</p>
+      <ol class="steps">
+        <li>打开 <span class="path">自然人电子税务局扣缴客户端</span> 软件</li>
+        <li>点击上方菜单 <span class="path">生产经营</span></li>
+        <li>进入 <span class="path">单位信息</span> → <span class="path">申报管理</span> → <span class="path">征收方式</span> → 点击 <span class="path">更新</span>，确认征收方式正确</li>
+        <li>点击 <span class="path">预缴纳税申报</span></li>
+        <li>确认"税款所属期"为<b>当前申报季度</b></li>
+        <li>填写<b>收入、成本、费用</b>等数据</li>
+        <li>点击 <span class="path">计算</span>，核对税额是否正确</li>
+        <li>点击 <span class="path">申报</span> 提交</li>
+        <li>申报成功后，前往<b>缴税模块</b>完成缴款</li>
+      </ol>
+      <div class="alert alert-yellow">
+        💡 扣缴端适合会计人员批量操作。个体户本人建议使用<b>网页端</b>，界面更直观。
+      </div>
+    </div>
+
+    <!-- ==================== 常见错误 ==================== -->
+    <div class="card" style="background:#fffafa; border-color:#ffcdd2;">
+      <div class="card-title" style="color:#c62828; border-bottom-color:#ffcdd2;">
+        <span class="icon">⚠️</span> 常见错误 &amp; 易错点
+      </div>
+
+      <div class="error-item">
+        <div class="wrong"><span class="x">✕</span>忘记季度申报，只做年度汇算</div>
+        <div class="right">季度预缴和年度汇算都必须做，缺一不可</div>
+      </div>
+
+      <div class="error-item">
+        <div class="wrong"><span class="x">✕</span>收入填写含税总收入，未扣除已开票退款</div>
+        <div class="right">填写实际取得的收入，退款需冲减</div>
+      </div>
+
+      <div class="error-item">
+        <div class="wrong"><span class="x">✕</span>查账征收与核定征收填表搞混</div>
+        <div class="right">登录前先确认自己的征收方式（可在电子税务局"我的信息"中查看）</div>
+      </div>
+
+      <div class="error-item">
+        <div class="wrong"><span class="x">✕</span>申报后忘记缴款，误以为申报＝完成</div>
+        <div class="right">申报和缴款是两个独立步骤，申报后必须单独完成缴款</div>
+      </div>
+
+      <div class="error-item">
+        <div class="wrong"><span class="x">✕</span>年度汇算时忘记享受减半优惠</div>
+        <div class="right">汇算清缴时在减免税额栏填写减半金额，或系统会自动提示勾选</div>
+      </div>
+
+      <div class="error-item">
+        <div class="wrong"><span class="x">✕</span>逾期才想起来申报</div>
+        <div class="right">建议在手机日历设置每季度提醒（4月10日、7月10日、10月10日、次年1月10日）</div>
+      </div>
+    </div>
+
+    <!-- ==================== 快速总结 ==================== -->
+    <div class="card" style="background:#e3f2fd; border-color:#bbdefb; text-align:center;">
+      <div class="card-title" style="justify-content:center; border-bottom-color:#bbdefb;">
+        <span class="icon">📌</span> 一句话记住
+      </div>
+      <p style="font-size:16px; font-weight:700; color:#1565C0; margin:8px 0;">
+        按季报A表，按年办B表<br>
+        先申报，再缴税，两步都不能少
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ==================== 底部 ==================== -->
+  <div class="footer">
+    本指引依据国家税务总局现行规定整理<br>
+    如遇政策调整以税务机关最新公告为准<br>
+    如有疑问请拨打税务服务热线：<b>12366</b>
+  </div>
+
+</div>
+
+</body>
+</html>
