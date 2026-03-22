@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>自然人 / 个体户常见业务操作手册 · 电子税务局</title>
+
+  <!-- 引用共享样式表（变量、body、page 容器等均由此提供） -->
+  <link rel="stylesheet" href="assets/style.css" />
+
+  <style>
+    /* ── 目录页专属：封面 ── */
+    .cover {
+      background: var(--gradient);
+      border-radius: 14px;
+      padding: 48px;
+      color: #fff;
+      margin-bottom: 32px;
+      box-shadow: var(--shadow-md);
+    }
+    .cover h1 {
+      font-size: 34px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      margin-bottom: 12px;
+    }
+    .cover p {
+      font-size: 14px;
+      opacity: 0.88;
+      line-height: 1.9;
+    }
+    .cover-meta {
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .cover-badge {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.30);
+      border-radius: 6px;
+      padding: 4px 14px;
+      font-size: 12px;
+      color: #fff;
+    }
+
+    /* ── 目录页专属：图例 ── */
+    .legend {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      background: var(--bg-page);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 20px;
+    }
+    .legend-item { display: flex; align-items: center; gap: 6px; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .dot-done { background: #27ae60; }
+    .dot-wip  { background: #f39c12; }
+    .dot-todo { background: #bdc3c7; }
+
+    /* ── 目录页专属：章节标题 ── */
+    .chapter { margin-bottom: 28px; }
+    .chapter-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-title);
+      padding: 8px 0 8px 14px;
+      border-left: 4px solid var(--primary-light);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ── 目录页专属：卡片网格 ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 12px;
+    }
+    .card {
+      background: var(--bg-page);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      text-decoration: none;
+      color: var(--text-main);
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+      cursor: pointer;
+    }
+    .card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary-light);
+      transform: translateY(-2px);
+    }
+    .card.done { border-left: 4px solid #27ae60; }
+    .card.wip  { border-left: 4px solid #f39c12; }
+    .card.todo {
+      border-left: 4px solid #bdc3c7;
+      opacity: 0.55;
+      pointer-events: none;
+      cursor: default;
+    }
+    .card-icon  { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+    .card-title { font-size: 13px; font-weight: 600; color: var(--text-title); line-height: 1.5; }
+    .card-status { font-size: 11px; margin-top: 4px; color: var(--text-muted); }
+    .card.done .card-status { color: #27ae60; }
+    .card.wip  .card-status { color: #f39c12; }
+
+    /* ── 目录页：page 容器覆盖（目录页不需要白色卡片容器） ── */
+    .page {
+      max-width: 900px;
+      background: transparent;   /* ← 覆盖 style.css 中的 #ffffff */
+      box-shadow: none;           /* ← 覆盖 style.css 中的阴影 */
+      border-radius: 0;           /* ← 覆盖 style.css 中的圆角 */
+      overflow: visible;          /* ← 覆盖 style.css 中的 overflow:hidden */
+    }
+
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- 封面 -->
+  <div class="cover">
+    <h1>📋 自然人 / 个体户操作手册</h1>
+    <p>电子税务局 / 自然人电子税务局 全流程操作指引<br>
+       涵盖登记、发票、申报、优惠政策及证明开具等模块<br>
+       点击对应卡片即可查看详细操作步骤 &nbsp;|&nbsp; 如有疑问请拨打 <strong>12366</strong></p>
+    <div class="cover-meta">
+      <span class="cover-badge">📅 持续更新中</span>
+      <span class="cover-badge">🖥️ 网页端适用</span>
+      <span class="cover-badge">👤 适用：自然人 / 个体工商户</span>
+      <span class="cover-badge">📞 热线：12366</span>
+    </div>
+  </div>
+
+  <!-- 图例 -->
+  <div class="legend">
+    <span style="font-weight:600; color:var(--text-title);">图例：</span>
+    <div class="legend-item"><div class="dot dot-done"></div>已完成</div>
+    <div class="legend-item"><div class="dot dot-wip"></div>编写中</div>
+    <div class="legend-item"><div class="dot dot-todo"></div>待完成（暂不可点击）</div>
+  </div>
+
+  <!-- 前言 -->
+  <div class="chapter">
+    <div class="chapter-title">📖 前言</div>
+    <div class="card-grid">
+      <a href="preface/login.html" class="card done">
+        <div class="card-icon">🔐</div>
+        <div>
+          <div class="card-title">如何登录电子税务局 / 自然人电子税务局 / 扣缴端</div>
+          <div class="card-status">✅ 已完成</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 第一章 -->
+  <div class="chapter">
+    <div class="chapter-title">🏢 第一章 · 登记管理</div>
+    <div class="card-grid">
+      <a href="ch1-registration/1.1-new-business.html" class="card todo">
+        <div class="card-icon">🆕</div>
+        <div><div class="card-title">1.1 新办开业操作流程</div><div class="card-status">⏳ 待完成</div></div>
+      </a>
+      <a href="ch1-registration/1.2-e-document.html" class="card done">
+        <div class="card-icon">📨</div>
+        <div><div class="card-title">1.2 电子文书送达协议签订</div><div class="card-status">✅ 已完成</div></div>
+      </a>
+      <a href="ch1-registration/1.3-invoice-type.html" class="card todo">
+        <div class="card-icon">🧾</div>
+        <div><div class="card-title">1.3 票种核定申请</div><div class="card-status">⏳ 待完成</div></div>
+      </a>
+      <a href="ch1-registration/1.4-bank-account.html" class="card wip">
+        <div class="card-icon">🏦</div>
+        <div><div class="card-title">1.4 存款账户报告 / 三方协议签订和变更</div><div class="card-status">⏳ 编写中</div></div>
+      </a>
+      <a href="ch1-registration/1.5-info-change.html" class="card todo">
+        <div class="card-icon">✏️</div>
+        <div><div class="card-title">1.5 税务信息变更（地址 / 办税员 / 经营范围等）</div><div class="card-status">⏳ 待完成</div></div>
+      </a>
+      <a href="ch1-registration/1.6-deregistration.html" class="card todo">
+        <div class="card-icon">🚪</div>
+        <div><div class="card-title">1.6 税务注销流程</div><div class="card-status">⏳ 待完成</div></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 第二章 -->
+  <div class="chapter">
+    <div class="chapter-title">🧾 第二章 · 发票管理</div>
+    <div class="card-grid">
+      <a href="ch2-invoice/2.1-issue-invoice.html" class="card todo">
+        <div class="card-icon">📄</div>
+        <div><div class="card-title">2.1 数电发票开具（普票 / 专票）</div><div class="card-status">⏳ 待完成</div></div>
+      </a>
+      <a href="ch2-invoice/2.2-red-invoice.html" class="card todo">
+        <div class="card-icon">🔴</div>
+        <div><div class="card-title">2.2 发票冲红</div><div class="card-status">⏳ 待完成</div></div>
+      </a>
+      <a href="ch2-invoice/2.3-quota-apply.html" class="card todo">
+        <div class="card-icon">📈</div>
+        <div><div class="card-title">2.3 发票额度申请</div><div class="card-status">⏳ 待完成</div></div>
+      </a>
+      <a href="ch2-invoice/2.4-invoice-query.html" class="card todo">
+        <div class="card-icon">🔍</div>
+        <div><div class="card-title">2.4 发票查询</div><div class="card-status">⏳ 待完成</div></div>
+      </a>
+      <a href="ch2-invoice/2.5-natural-person-invoice.html" class="card done">
+        <div class="card-icon">👤</div>
+        <div><div class="card-title">2.5 自然人代开发票</div><div class="card-status">✅ 已完成</div></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 第三章 -->
+  <div class="chapter">
+    <div class="chapter-title">💰 第三章 · 税费申报</div>
+    <div class="card-grid">
+      <a href="ch3-tax-filing/3.1-vat-small.html" class="card done">
+        <div class="card-icon">💰</div>
+        <div><div class="card-title">3.1 增值税申报</div><div class="card-status">✅ 已完成</div></div>
+      </a>
+      <a href="ch3-tax-filing/3.2-iit-business.html" class="card todo">
+        <div class="card-icon">👤</div>
+        <div><div class="card-title">3.2 个人所得税经营所得申报</div><div class="card-status">⏳ 待完成</div></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 第四章 -->
+  <div class="chapter">
+    <div class="chapter-title">🎁 第四章 · 常见政策</div>
+    <div class="card-grid">
+      <a href="ch4-tax-incentives/4.1-reduction.html" class="card todo">
+        <div class="card-icon">🎁</div>
+        <div><div class="card-title">4.1 个体户优惠政策（减半 / 重点群体）</div><div class="card-status">⏳ 待完成</div></div>
+      </a>
+      <a href="ch4-tax-incentives/4.2-how-to-apply.html" class="card todo">
+        <div class="card-icon">📝</div>
+        <div><div class="card-title">4.2 申报中如何选择享受优惠</div><div class="card-status">⏳ 待完成</div></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 第五章 -->
+  <div class="chapter">
+    <div class="chapter-title">📜 第五章 · 证明开具</div>
+    <div class="card-grid">
+      <a href="ch5-certificates/5.1-tax-payment-cert.html" class="card todo">
+        <div class="card-icon">📜</div>
+        <div><div class="card-title">5.1 完税证明开具</div><div class="card-status">⏳ 待完成</div></div>
+      </a>
+      <a href="ch5-certificates/5.2-no-debt-cert.html" class="card todo">
+        <div class="card-icon">📋</div>
+        <div><div class="card-title">5.2 无欠税证明开具</div><div class="card-status">⏳ 待完成</div></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 附录 -->
+  <div class="chapter">
+    <div class="chapter-title">📎 附录 · 常见问题</div>
+    <div class="card-grid">
+      <a href="appendix/faq-fixed-rate.html" class="card done">
+        <div class="card-icon">❓</div>
+        <div><div class="card-title">定额 / 定率征收的申报为什么不能填成本？</div><div class="card-status">✅ 已完成</div></div>
+      </a>
+      <a href="appendix/faq-300k-exemption.html" class="card todo">
+        <div class="card-icon">💡</div>
+        <div><div class="card-title">30万免税额度是什么？为什么超过要全额交税？</div><div class="card-status">⏳ 待完成</div></div>
+      </a>
+      <a href="appendix/faq-platform-income.html" class="card todo">
+        <div class="card-icon">📱</div>
+        <div><div class="card-title">平台收入查询报送</div><div class="card-status">⏳ 待完成</div></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 页脚 -->
+  <div class="footer">
+    如操作过程中遇到问题，请拨打纳税服务热线 <strong>12366</strong> 获取帮助
+  </div>
+
+</div>
+</body>
+</html>
