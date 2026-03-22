@@ -4,26 +4,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
   <title>前言：如何登录电子税务局 · 操作指引</title>
-  <!-- 引入您原有的样式文件 -->
   <link rel="stylesheet" href="../assets/style.css" />
-  
-  <!-- ✅ 新增：手机端适配 + 折叠功能样式 (不用改原 CSS，这里覆盖即可) -->
   <style>
-    /* 手机端专用适配 */
+    /* ===== 移动端适配优化 ===== */
     @media (max-width: 768px) {
-      body { padding: 10px !important; font-size: 14px; }
+      body { padding: 10px !important; }
       .page { max-width: 100% !important; border-radius: 8px; }
       .header { padding: 24px 16px !important; }
       .body { padding: 16px !important; }
       .footer { padding: 20px 16px !important; }
       .header h1 { font-size: 22px !important; }
+      .header p { font-size: 13px !important; }
       .step-card { flex-direction: column !important; gap: 10px; }
       .step-num { margin: 0; }
-      .period-table { display: block; overflow-x: auto; white-space: nowrap; }
       .section-title { font-size: 15px; margin: 20px 0 10px; }
+      /* 表格自适应，不换行滑动 */
+      .period-table { font-size: 12px; }
+      .period-table th, .period-table td { padding: 8px 6px; word-break: break-word; }
     }
 
-    /* 折叠模块样式 */
+    /* ===== 折叠模块样式 ===== */
     details.module-card {
       background: #fff;
       border-radius: 8px;
@@ -64,20 +64,11 @@
       padding: 16px;
       border-top: 1px solid #e8f3fb;
     }
-    /* 表格滚动容器 */
-    .table-wrapper {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      margin: 10px 0;
-      border-radius: 6px;
-      border: 1px solid #e8f3fb;
-    }
-    .table-wrapper table { margin: 0; }
   </style>
 </head>
 <body>
 
-<!-- ══ Lightbox 遮罩 (保持原样) ══ -->
+<!-- ══ Lightbox 遮罩 ══ -->
 <div class="lightbox-overlay" id="lightbox" onclick="closeLightbox(event)">
   <div class="lightbox-close" onclick="closeLightboxDirect()">✕</div>
   <img id="lightbox-img" src="" alt="图片预览" onclick="event.stopPropagation()" />
@@ -86,7 +77,7 @@
 
 <div class="page">
 
-  <!-- 页头 (保持展开，不折叠) -->
+  <!-- 页头 (保持展开) -->
   <div class="header">
     <div class="header-top">
       <div class="tag">电子税务局 · 操作指引</div>
@@ -111,34 +102,32 @@
         <span>📌 三大平台说明——你该用哪个？</span>
       </summary>
       <div class="module-content">
-        <div class="table-wrapper">
-          <table class="period-table">
-            <thead>
-              <tr>
-                <th>平台名称</th>
-                <th>主要用途</th>
-                <th>访问地址</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>电子税务局</strong></td>
-                <td>增值税申报、发票开具、企业所得税、社保费等企业税务事项</td>
-                <td>各省税务局官网入口</td>
-              </tr>
-              <tr>
-                <td><strong>自然人电子税务局</strong></td>
-                <td>个税申报（含工资薪金、经营所得等）、专项附加扣除填报、完税证明开具等</td>
-                <td>etax.chinatax.gov.cn</td>
-              </tr>
-              <tr>
-                <td><strong>自然人电子税务局（扣缴端）</strong></td>
-                <td>代扣代缴员工个人所得税（工资薪金）、经营所得个税申报等</td>
-                <td>下载客户端安装使用</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <table class="period-table">
+          <thead>
+            <tr>
+              <th>平台名称</th>
+              <th>主要用途</th>
+              <th>访问地址</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>电子税务局</strong></td>
+              <td>增值税申报、发票开具、企业所得税、社保费等企业税务事项</td>
+              <td>各省税务局官网入口</td>
+            </tr>
+            <tr>
+              <td><strong>自然人电子税务局</strong></td>
+              <td>个税申报（含工资薪金、经营所得等）、专项附加扣除填报、完税证明开具等</td>
+              <td>etax.chinatax.gov.cn</td>
+            </tr>
+            <tr>
+              <td><strong>自然人电子税务局（扣缴端）</strong></td>
+              <td>代扣代缴员工个人所得税（工资薪金）、经营所得个税申报等</td>
+              <td>下载客户端安装使用</td>
+            </tr>
+          </tbody>
+        </table>
         <div class="tip-box" style="margin-top:12px;">
           💡 <strong>简单记忆：</strong>公司日常税务办理用<strong>电子税务局</strong>；个税申报（无论个人自报还是财务代报）均可通过<strong>自然人电子税务局</strong>或<strong>扣缴端</strong>完成，两者均支持个税相关业务。
         </div>
@@ -197,39 +186,37 @@
             <span>2️⃣ 登录方式（2025 年现行）</span>
           </summary>
           <div class="module-content" style="padding:12px; border:none;">
-            <div class="table-wrapper">
-              <table class="period-table">
-                <thead>
-                  <tr>
-                    <th>登录入口</th>
-                    <th>验证方式</th>
-                    <th>适用场景</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>🏢 企业业务</td>
-                    <td>个人密码 + 短信验证码</td>
-                    <td>财务人员、法人、办税员代企业办税</td>
-                  </tr>
-                  <tr>
-                    <td>👤 自然人业务</td>
-                    <td>身份证号/手机号/用户名 + 密码 + 短信验证码</td>
-                    <td>个人办税、查询个人信息</td>
-                  </tr>
-                  <tr>
-                    <td>🤝 代理业务</td>
-                    <td>个人密码 + 短信验证码</td>
-                    <td>税务师事务所、代理记账公司</td>
-                  </tr>
-                  <tr>
-                    <td>📱 扫码登录</td>
-                    <td>手机 APP 扫码</td>
-                    <td>快速免密登录，推荐日常使用</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <table class="period-table">
+              <thead>
+                <tr>
+                  <th>登录入口</th>
+                  <th>验证方式</th>
+                  <th>适用场景</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>🏢 企业业务</td>
+                  <td>个人密码 + 短信验证码</td>
+                  <td>财务人员、法人、办税员代企业办税</td>
+                </tr>
+                <tr>
+                  <td>👤 自然人业务</td>
+                  <td>身份证号/手机号/用户名 + 密码 + 短信验证码</td>
+                  <td>个人办税、查询个人信息</td>
+                </tr>
+                <tr>
+                  <td>🤝 代理业务</td>
+                  <td>个人密码 + 短信验证码</td>
+                  <td>税务师事务所、代理记账公司</td>
+                </tr>
+                <tr>
+                  <td>📱 扫码登录</td>
+                  <td>手机 APP 扫码</td>
+                  <td>快速免密登录，推荐日常使用</td>
+                </tr>
+              </tbody>
+            </table>
             <div class="tip-box" style="margin-top:10px;">
               💡 <strong>推荐使用扫码登录：</strong>打开手机<strong>电子税务局 APP</strong>，在网页端登录界面选择【扫码登录】，用 APP 扫描二维码即可快速登录，无需每次输入密码。
             </div>
@@ -360,34 +347,32 @@
             <span>2️⃣ 验证方式</span>
           </summary>
           <div class="module-content" style="padding:12px; border:none;">
-            <div class="table-wrapper">
-              <table class="period-table">
-                <thead>
-                  <tr>
-                    <th>验证方式</th>
-                    <th>说明</th>
-                    <th>推荐程度</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>📱 手机号 + 密码</td>
-                    <td>最常用方式，输入手机号和登录密码</td>
-                    <td>⭐⭐⭐⭐</td>
-                  </tr>
-                  <tr>
-                    <td>🪪 身份证号 + 密码</td>
-                    <td>与手机号登录等效，任选其一</td>
-                    <td>⭐⭐⭐</td>
-                  </tr>
-                  <tr>
-                    <td>🖐️ 指纹 / 手势登录</td>
-                    <td>APP 端支持，开启后可免密快速登录，需先在设置中绑定</td>
-                    <td>⭐⭐⭐⭐⭐</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <table class="period-table">
+              <thead>
+                <tr>
+                  <th>验证方式</th>
+                  <th>说明</th>
+                  <th>推荐程度</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>📱 手机号 + 密码</td>
+                  <td>最常用方式，输入手机号和登录密码</td>
+                  <td>⭐⭐⭐⭐</td>
+                </tr>
+                <tr>
+                  <td>🪪 身份证号 + 密码</td>
+                  <td>与手机号登录等效，任选其一</td>
+                  <td>⭐⭐⭐</td>
+                </tr>
+                <tr>
+                  <td>🖐️ 指纹 / 手势登录</td>
+                  <td>APP 端支持，开启后可免密快速登录，需先在设置中绑定</td>
+                  <td>⭐⭐⭐⭐⭐</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </details>
 
@@ -485,54 +470,52 @@
         <span>❓ 常见问题 Q&A</span>
       </summary>
       <div class="module-content">
-        <div class="table-wrapper">
-          <table class="period-table">
-            <thead>
-              <tr>
-                <th>问题</th>
-                <th>原因分析</th>
-                <th>解决方案</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>登录时提示"账号不存在"</td>
-                <td>未注册或输入账号有误</td>
-                <td>确认账号类型（手机号/身份证号），或重新注册</td>
-              </tr>
-              <tr>
-                <td>短信验证码收不到</td>
-                <td>手机信号差、号码有误或被屏蔽</td>
-                <td>检查手机信号；确认号码正确；等待 1 分钟后重新发送；联系运营商确认是否屏蔽</td>
-              </tr>
-              <tr>
-                <td>提示"实名认证失败"</td>
-                <td>姓名/身份证号填写有误</td>
-                <td>核对姓名与身份证号是否一致；如仍失败拨打 12366</td>
-              </tr>
-              <tr>
-                <td>登录后找不到关联企业</td>
-                <td>该身份证未被企业添加为办税员</td>
-                <td>联系企业法人或主管税务机关，将本人身份证号添加为办税员后重新登录</td>
-              </tr>
-              <tr>
-                <td>密码连续输错被锁定</td>
-                <td>密码错误次数超过系统限制（通常 5 次）</td>
-                <td>等待 24 小时自动解锁，或通过"忘记密码"流程重置密码</td>
-              </tr>
-              <tr>
-                <td>人脸识别反复失败</td>
-                <td>光线不足、摄像头遮挡或网络不稳定</td>
-                <td>在光线充足处重试；清洁摄像头；切换至 WiFi 网络；仍失败可尝试更换设备</td>
-              </tr>
-              <tr>
-                <td>企业端登录后无操作权限</td>
-                <td>办税员权限未开通或已过期</td>
-                <td>联系企业法人登录后在【人员权限管理】中重新授权</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <table class="period-table">
+          <thead>
+            <tr>
+              <th>问题</th>
+              <th>原因分析</th>
+              <th>解决方案</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>登录时提示"账号不存在"</td>
+              <td>未注册或输入账号有误</td>
+              <td>确认账号类型（手机号/身份证号），或重新注册</td>
+            </tr>
+            <tr>
+              <td>短信验证码收不到</td>
+              <td>手机信号差、号码有误或被屏蔽</td>
+              <td>检查手机信号；确认号码正确；等待 1 分钟后重新发送；联系运营商确认是否屏蔽</td>
+            </tr>
+            <tr>
+              <td>提示"实名认证失败"</td>
+              <td>姓名/身份证号填写有误</td>
+              <td>核对姓名与身份证号是否一致；如仍失败拨打 12366</td>
+            </tr>
+            <tr>
+              <td>登录后找不到关联企业</td>
+              <td>该身份证未被企业添加为办税员</td>
+              <td>联系企业法人或主管税务机关，将本人身份证号添加为办税员后重新登录</td>
+            </tr>
+            <tr>
+              <td>密码连续输错被锁定</td>
+              <td>密码错误次数超过系统限制（通常 5 次）</td>
+              <td>等待 24 小时自动解锁，或通过"忘记密码"流程重置密码</td>
+            </tr>
+            <tr>
+              <td>人脸识别反复失败</td>
+              <td>光线不足、摄像头遮挡或网络不稳定</td>
+              <td>在光线充足处重试；清洁摄像头；切换至 WiFi 网络；仍失败可尝试更换设备</td>
+            </tr>
+            <tr>
+              <td>企业端登录后无操作权限</td>
+              <td>办税员权限未开通或已过期</td>
+              <td>联系企业法人登录后在【人员权限管理】中重新授权</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </details>
 
@@ -563,34 +546,32 @@
         <span>📞 遇到问题，如何获取帮助</span>
       </summary>
       <div class="module-content">
-        <div class="table-wrapper">
-          <table class="period-table">
-            <thead>
-              <tr>
-                <th>渠道</th>
-                <th>说明</th>
-                <th>适用情况</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>📞 拨打 <strong>12366</strong></td>
-                <td>国家税务总局纳税服务热线，工作日 8:30–17:00</td>
-                <td>账号问题、操作咨询、政策疑问等各类问题</td>
-              </tr>
-              <tr>
-                <td>🏢 前往办税服务厅</td>
-                <td>携带本人身份证及企业相关证件</td>
-                <td>手机号更换、实名认证失败、账号被锁等无法线上解决的问题</td>
-              </tr>
-              <tr>
-                <td>💬 在线客服</td>
-                <td>各省电子税务局网页端或电子税务局 APP"征纳互动"入口</td>
-                <td>操作指引、简单问题快速解答</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <table class="period-table">
+          <thead>
+            <tr>
+              <th>渠道</th>
+              <th>说明</th>
+              <th>适用情况</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>📞 拨打 <strong>12366</strong></td>
+              <td>国家税务总局纳税服务热线，工作日 8:30–17:00</td>
+              <td>账号问题、操作咨询、政策疑问等各类问题</td>
+            </tr>
+            <tr>
+              <td>🏢 前往办税服务厅</td>
+              <td>携带本人身份证及企业相关证件</td>
+              <td>手机号更换、实名认证失败、账号被锁等无法线上解决的问题</td>
+            </tr>
+            <tr>
+              <td>💬 在线客服</td>
+              <td>各省电子税务局网页端或电子税务局 APP"征纳互动"入口</td>
+              <td>操作指引、简单问题快速解答</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </details>
 
@@ -623,9 +604,7 @@
   </div>
 </div>
 
-<!-- 引入您原有的 JS 文件 -->
 <script src="../assets/lightbox.js"></script>
-<!-- ✅ 新增：防止点击图片时意外折叠模块 -->
 <script>
   document.querySelectorAll('.step-img').forEach(img => {
     img.addEventListener('click', function(e) {

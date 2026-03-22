@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
+  <title>自然人代开增值税发票 · 操作指引</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <style>
+    /* ===== 移动端适配优化 ===== */
+    @media (max-width: 768px) {
+      body { padding: 10px !important; }
+      .page { max-width: 100% !important; border-radius: 8px; }
+      .header { padding: 24px 16px !important; }
+      .body { padding: 16px !important; }
+      .footer { padding: 20px 16px !important; }
+      .header h1 { font-size: 22px !important; }
+      .header p { font-size: 13px !important; }
+      .step-card { flex-direction: column !important; gap: 10px; }
+      .step-num, .sub-num { margin: 0; }
+      .section-title { font-size: 15px; margin: 20px 0 10px; }
+      .period-table, .doc-table { font-size: 12px; }
+      .period-table th, .period-table td,
+      .doc-table th, .doc-table td { padding: 8px 6px; word-break: break-word; }
+      .path-box { font-size: 12px; padding: 10px 12px; }
+      .path-box .node { padding: 2px 8px; font-size: 12px; }
+      .type-tabs { gap: 6px; }
+      .type-tab { padding: 4px 10px; font-size: 12px; }
+    }
+
+    /* ===== 折叠模块样式 ===== */
+    details.module-card {
+      background: #fff;
+      border-radius: 8px;
+      margin: 12px 0;
+      box-shadow: 0 2px 8px rgba(33, 118, 199, 0.08);
+      border: 1px solid #e8f3fb;
+      overflow: hidden;
+    }
+    details.module-card[open] {
+      box-shadow: 0 4px 16px rgba(33, 118, 199, 0.15);
+    }
+    summary.module-header {
+      padding: 14px 16px;
+      font-weight: 700;
+      color: #1a4a7a;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f4f9fd;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    summary.module-header::-webkit-details-marker { display: none; }
+    summary.module-header:hover { background: #e8f3fb; }
+    summary.module-header:active { opacity: 0.9; }
+    
+    .toggle-icon {
+      font-size: 12px;
+      transition: transform 0.2s;
+      color: #2176c7;
+    }
+    details[open] .toggle-icon {
+      transform: rotate(90deg);
+    }
+    .module-content {
+      padding: 16px;
+      border-top: 1px solid #e8f3fb;
+    }
+
+    /* ===== 本页专属样式（保留原有） ===== */
+    .type-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .type-tab {
+      background: var(--bg-info);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 5px 14px;
+      font-size: 13px;
+      color: var(--text-title);
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.18s, color 0.18s, border-color 0.18s, box-shadow 0.18s;
+    }
+    .type-tab:hover {
+      background: var(--primary-light);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: var(--shadow-sm);
+    }
+    .type-tab.active {
+      background: var(--gradient);
+      color: #fff;
+      border-color: transparent;
+    }
+    .type-tab.active:hover {
+      box-shadow: var(--shadow-sm);
+    }
+
+    .sub-num {
+      width: 30px; height: 30px;
+      background: var(--gradient);
+      border-radius: 50%;
+      color: #fff;
+      font-size: 15px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 2px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .result-list { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+    .result-item {
+      display: flex; gap: 10px; align-items: flex-start;
+      background: var(--bg-path);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--primary-light);
+      border-radius: 0 8px 8px 0;
+      padding: 10px 14px;
+      font-size: 13px;
+      color: var(--text-title);
+      line-height: 1.8;
+    }
+    .result-tag {
+      background: var(--gradient);
+      color: #fff;
+      border-radius: 4px;
+      padding: 1px 8px;
+      font-size: 11px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      white-space: nowrap;
+    }
+
+    .doc-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      margin-top: 4px;
+    }
+    .doc-table th {
+      background: var(--primary-dark);
+      color: #fff;
+      padding: 10px 12px;
+      text-align: left;
+      font-weight: 600;
+    }
+    .doc-table td {
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--border-light);
+      background: var(--bg-step);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+    .doc-table td code {
+      background: var(--border-light);
+      color: var(--text-title);
+      border-radius: 3px;
+      padding: 1px 6px;
+      font-size: 12px;
+      font-family: "Courier New", monospace;
+    }
+    .doc-table tr:last-child td { border-bottom: none; }
+    .doc-table tr:nth-child(even) td { background: var(--bg-info); }
+    .doc-table .check { color: var(--primary-light); font-weight: 700; text-align: center; }
+
+    .sub-step .steps { gap: 10px; }
+    .sub-step .step-card {
+      background: var(--bg-page);
+      border-color: var(--border-light);
+      padding: 12px 16px;
+    }
+
+    .notice-box {
+      background: #fffbea;
+      border: 1px solid #f5d76e;
+      border-left: 4px solid #f0a500;
+      border-radius: 0 8px 8px 0;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #7d5a00;
+      line-height: 1.8;
+      margin-top: 10px;
+    }
+
+    .sub-step code {
+      background: var(--border-light);
+      color: var(--text-title);
+      border-radius: 3px;
+      padding: 1px 6px;
+      font-size: 12px;
+      font-family: "Courier New", monospace;
+    }
+
+    .anchor-target { scroll-margin-top: 20px; }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ══ Lightbox 遮罩 ══ -->
+  <div class="lightbox-overlay" id="lightbox" onclick="closeLightbox(event)">
+    <div class="lightbox-close" onclick="closeLightboxDirect()">✕</div>
+    <img id="lightbox-img" src="" alt="图片预览" onclick="event.stopPropagation()" />
+    <div class="lightbox-hint">点击空白处或按 ESC 关闭</div>
+  </div>
+
+  <!-- ══ 页头 ══ -->
+  <div class="header">
+    <div class="header-top">
+      <div class="tag">电子税务局 · 操作指引</div>
+      <a href="../index.html" class="btn-back">← 返回目录</a>
+    </div>
+    <h1>自然人代开增值税发票</h1>
+    <p>本指引适用于无法自行开具发票的自然人（含个体工商户）向税务机关申请代开增值税发票<br>
+       请按步骤操作，如遇问题请拨打 <strong>12366</strong> 纳税服务热线</p>
+    <div class="badges">
+      <span class="badge">👤 自然人适用</span>
+      <span class="badge">🏪 个体工商户适用</span>
+      <span class="badge">🖥️ 网页端</span>
+      <span class="badge">🧾 数电普票 / 专票</span>
+    </div>
+  </div>
+
+  <!-- ══ 正文 ══ -->
+  <div class="body">
+
+    <!-- 一、适用对象 -->
+    <details class="module-card" open>
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>一、适用对象</span>
+      </summary>
+      <div class="module-content">
+        <div class="info-box">
+          ✅ &nbsp;无法自行开具增值税发票、需向税务机关申请<strong>代开</strong>的自然人或个体工商户<br>
+          ✅ &nbsp;适用业务类型：<strong>货物及一般服务、出租不动产、建筑服务、货物运输服务</strong><br>
+          ⚠️ &nbsp;已在核心征管系统中核定数电专票票种的小规模纳税人，<strong>不可</strong>申请代开相应票种
+        </div>
+        <div class="notice-box">
+          💛 <strong>温馨提示：</strong>根据目前文件规定，自然人仅在发生<strong>不动产租赁、销售</strong>的业务时方可代开增值税专用发票！
+        </div>
+      </div>
+    </details>
+
+    <!-- 二、操作路径 -->
+    <details class="module-card" open>
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>二、操作路径</span>
+      </summary>
+      <div class="module-content">
+        <div class="path-box">
+          <span class="path-label">路径：</span>
+          <span class="node">电子税务局首页</span>
+          <span class="arrow">→</span>
+          <span class="node">我要办税</span>
+          <span class="arrow">→</span>
+          <span class="node">发票业务</span>
+          <span class="arrow">→</span>
+          <span class="node">代开增值税发票</span>
+        </div>
+        <div class="tip-box">💡 也可通过首页搜索栏输入「代开」关键字快速定位功能入口</div>
+      </div>
+    </details>
+
+    <!-- 三、操作步骤 -->
+    <details class="module-card">
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>三、操作步骤</span>
+      </summary>
+      <div class="module-content">
+        <div class="steps">
+
+          <!-- 步骤 1 -->
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <div class="step-text">登录电子税务局，点击 <strong>【我要办税】→【发票业务】→【代开增值税发票】</strong></div>
+              <div class="step-screenshot">
+                <img src="images/2.5/2.5-01-menu.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" />
+              </div>
+            </div>
+          </div>
+
+          <!-- 步骤 2 -->
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <div class="step-text">进入代开页面后，根据实际业务选择对应的<strong>代开类型</strong>（点击下方标签可直接跳转）：</div>
+
+              <div class="type-tabs">
+                <a href="#section-general"   class="type-tab">货物 / 一般服务</a>
+                <a href="#section-realestate" class="type-tab">出租不动产</a>
+                <a href="#section-construct"  class="type-tab">建筑服务</a>
+                <a href="#section-transport"  class="type-tab">货物运输服务</a>
+              </div>
+
+              <div class="step-screenshot">
+                <img src="images/2.5/2.5-02-type-select.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" />
+              </div>
+
+              <!-- （一）货物 / 一般服务 -->
+              <details class="module-card" style="margin:10px 0; box-shadow:none; border:1px solid #eee;" id="section-general">
+                <summary class="module-header" style="padding:10px 12px; font-size:14px; background:#fff;">
+                  <span class="toggle-icon">▶</span>
+                  <span>（一）货物、服务等一般代开</span>
+                </summary>
+                <div class="module-content" style="padding:12px; border:none;">
+                  <div class="steps">
+                    <div class="step-card">
+                      <div class="sub-num">①</div>
+                      <div class="step-content">
+                        <div class="step-text">点击 <strong>【货物、服务等一般代开】</strong> 或 <strong>【申请代开】</strong>，进入代开申请页面</div>
+                      </div>
+                    </div>
+
+                    <div class="step-card">
+                      <div class="sub-num">②</div>
+                      <div class="step-content">
+                        <div class="step-text">填写发票信息：可点击右上角 <strong>【切换至表单视图】</strong> 切换填写方式；录入购买方信息、项目名称、备注等，点击 <strong>【下一步】</strong></div>
+                        <div class="step-screenshot">
+                          <img src="images/2.5/2.5-03-invoice-form.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" />
+                        </div>
+
+                        <div class="sub-step" style="margin-top:10px;">
+                          <div class="sub-step-title">步骤②中 如何确定「项目名称」？</div>
+                          <div class="step-text">项目名称须<strong>准确反映交易内容</strong>，并与税收分类编码匹配。格式为：<strong>*税收分类简称*具体名称</strong>，例如：<code>*设计服务*LOGO 设计</code>、<code>*软件开发服务*软件开发</code></div>
+
+                          <div class="tip-box" style="margin-top:8px;">
+                            💡 <strong>推荐方式：系统智能赋码</strong><br>
+                            在「项目名称」栏输入业务关键词（如：设计、咨询、维修），系统将自动弹出匹配的税收分类编码及标准名称，选择最贴近的一项即可，关键词越具体匹配越准确。
+                          </div>
+
+                          <div class="tip-box" style="margin-top:8px;">
+                            💡 <strong>参考合同约定</strong><br>
+                            可参照与购买方签订的合同或协议中对服务/货物的描述，提炼核心内容后填写，避免使用「服务费」「劳务费」等笼统表述。
+                          </div>
+
+                          <div style="margin-top:10px; font-size:13px; color:var(--text-title); font-weight:700;">常见业务参考：</div>
+                          <table class="doc-table" style="margin-top:6px;">
+                            <thead>
+                              <tr><th>实际业务</th><th>项目名称示例</th></tr>
+                            </thead>
+                            <tbody>
+                              <tr><td>临时搬运 / 装卸</td><td><code>*物流辅助服务*装卸搬运</code></td></tr>
+                              <tr><td>家教 / 培训</td><td><code>*非学历教育服务*讲课费</code></td></tr>
+                              <tr><td>维修家电</td><td><code>*劳务*修理修配劳务</code></td></tr>
+                              <tr><td>写代码 / 做小程序</td><td><code>*软件开发服务*软件开发服务</code></td></tr>
+                              <tr><td>拍照 / 修图</td><td><code>*生活服务*摄影服务</code></td></tr>
+                              <tr><td>制作 PPT / 设计</td><td><code>*设计服务*PPT 制作</code></td></tr>
+                            </tbody>
+                          </table>
+
+                          <div class="warn-item" style="margin-top:10px;">
+                            <span class="warn-icon">⚠️</span>
+                            <span>项目名称必须与实际业务一致，不得填写与交易内容不符的名称；如填写不确定，可拨打 <strong>12366</strong> 咨询或直接向购买方财务确认其报销要求。</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="step-card">
+                      <div class="sub-num">③</div>
+                      <div class="step-content">
+                        <div class="step-text"><strong>纳税信息确认</strong>：系统自动加载应纳税款及本月可用税款信息；可自行录入时间后点击 <strong>【查询】</strong>，确认无误后点击 <strong>【提交申请】</strong></div>
+                        <div class="step-screenshot">
+                          <img src="images/2.5/2.5-04-tax-confirm.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </details>
+
+              <!-- （二）出租不动产 -->
+              <details class="module-card" style="margin:10px 0; box-shadow:none; border:1px solid #eee;" id="section-realestate">
+                <summary class="module-header" style="padding:10px 12px; font-size:14px; background:#fff;">
+                  <span class="toggle-icon">▶</span>
+                  <span>（二）出租不动产</span>
+                </summary>
+                <div class="module-content" style="padding:12px; border:none;">
+                  <div class="steps">
+                    <div class="step-card">
+                      <div class="sub-num">①</div>
+                      <div class="step-content">
+                        <div class="step-text">点击 <strong>【出租不动产】</strong>，进入代开申请页面</div>
+                      </div>
+                    </div>
+
+                    <div class="step-card">
+                      <div class="sub-num">②</div>
+                      <div class="step-content">
+                        <div class="step-text">填写<strong>不动产和合同信息</strong>：选择代开申请人类型、不动产单元号、坐落地址、不动产权证、用途、面积、租赁合同金额、合同租赁期等，并上传相关资料，点击 <strong>【下一步】</strong></div>
+                        <div class="step-screenshot">
+                          <img src="images/2.5/2.5-05-realestate-form.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="step-card">
+                      <div class="sub-num">③</div>
+                      <div class="step-content">
+                        <div class="step-text">填写<strong>发票信息</strong>：录入购买方信息、实际租赁时间起止等，点击 <strong>【下一步】</strong></div>
+                        <div class="step-screenshot">
+                          <img src="images/2.5/2.5-06-realestate-invoice.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="step-card">
+                      <div class="sub-num">④</div>
+                      <div class="step-content">
+                        <div class="step-text"><strong>纳税信息确认</strong>：确认应纳税款及可用税款信息，点击 <strong>【提交申请】</strong></div>
+                        <div class="step-screenshot">
+                          <img src="images/2.5/2.5-07-realestate-tax.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </details>
+
+              <!-- （三）建筑服务 / 货物运输服务 -->
+              <details class="module-card" style="margin:10px 0; box-shadow:none; border:1px solid #eee;" id="section-construct">
+                <summary class="module-header" style="padding:10px 12px; font-size:14px; background:#fff;">
+                  <span class="toggle-icon">▶</span>
+                  <span>（三）建筑服务 / 货物运输服务</span>
+                </summary>
+                <div class="module-content" style="padding:12px; border:none;">
+                  <div class="step-text" style="margin-bottom:10px;">以上两类操作流程相似，步骤如下：</div>
+                  <div class="steps">
+                    <div class="step-card">
+                      <div class="sub-num">①</div>
+                      <div class="step-content">
+                        <div class="step-text">点击对应业务类型按钮（<strong>建筑服务</strong> 或 <strong>货物运输服务</strong>），进入代开申请页面</div>
+                      </div>
+                    </div>
+
+                    <div class="step-card">
+                      <div class="sub-num">②</div>
+                      <div class="step-content">
+                        <div class="step-text"><strong>建筑服务</strong>：录入购买方信息、建筑项目类别、名称、建筑服务发生地县（市、区）等数据</div>
+                        <div class="tip-box">💡 建筑服务发票备注栏须注明建筑服务发生地县（市、区）名称及项目名称</div>
+                      </div>
+                    </div>
+
+                    <div class="step-card" id="section-transport">
+                      <div class="sub-num">②</div>
+                      <div class="step-content">
+                        <div class="step-text"><strong>货物运输服务</strong>：录入购买方信息、运输项目信息、起运地、到达地等数据；填写的运输工具信息应与备案信息一致</div>
+                        <div class="tip-box">💡 具备运输资格并已纳入税收管理的小规模纳税人，备案后可在税务登记地、货物起运地、到达地或承揽地就近申请代开</div>
+                      </div>
+                    </div>
+
+                    <div class="step-card">
+                      <div class="sub-num">③</div>
+                      <div class="step-content">
+                        <div class="step-text">可切换 <strong>票样视图 / 表单视图</strong>，填写完成后点击 <strong>【下一步】</strong></div>
+                      </div>
+                    </div>
+
+                    <div class="step-card">
+                      <div class="sub-num">④</div>
+                      <div class="step-content">
+                        <div class="step-text"><strong>纳税信息确认</strong>：确认无误后点击 <strong>【提交申请】</strong></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </details>
+
+              <!-- 提交后三种情况 -->
+              <div class="tip-box" style="margin-top:14px;">
+                📋 <strong>提交申请后，系统将出现以下三种情况之一：</strong>
+              </div>
+              <div class="result-list">
+                <div class="result-item">
+                  <span class="result-tag">情况 1</span>
+                  <span>申请提交成功，<strong>无需审核、无需缴款</strong>，系统自动完成数电票开具</span>
+                </div>
+                <div class="result-item">
+                  <span class="result-tag">情况 2</span>
+                  <span>申请提交成功，<strong>无需审核，需缴款</strong>，跳转至预缴开票页面，缴款成功后可自行开具数电票</span>
+                </div>
+                <div class="result-item">
+                  <span class="result-tag">情况 3</span>
+                  <span>申请提交成功，<strong>需审核</strong>，税务人员审核完成后方可进行后续操作</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- 步骤 3：发票下载 -->
+          <details class="module-card" style="margin:10px 0; box-shadow:none; border:1px solid #eee;">
+            <summary class="module-header" style="padding:10px 12px; font-size:14px; background:#fff;">
+              <span class="toggle-icon">▶</span>
+              <span>3️⃣ 开具成功后下载发票</span>
+            </summary>
+            <div class="module-content" style="padding:12px; border:none;">
+              <div class="step-text">开具成功后，通过以下两种方式<strong>下载发票</strong>：</div>
+
+              <div class="sub-step">
+                <div class="sub-step-title">方式一：从开具成功界面直接下载</div>
+                <div class="steps">
+                  <div class="step-card">
+                    <div class="sub-num">①</div>
+                    <div class="step-content">
+                      <div class="step-text">点击 <strong>【发票预览】</strong>，进入预览页面</div>
+                      <div class="step-screenshot">
+                        <img src="images/2.5/2.5-08-download-preview.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="step-card">
+                    <div class="sub-num">②</div>
+                    <div class="step-content">
+                      <div class="step-text">选择下载方式：<strong>二维码下载 / PDF / OFD / XML</strong></div>
+                      <div class="step-screenshot">
+                        <img src="images/2.5/2.5-09-download-direct.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sub-step">
+                <div class="sub-step-title">方式二：从代开申请界面查询下载</div>
+                <div class="steps">
+                  <div class="step-card">
+                    <div class="sub-num">①</div>
+                    <div class="step-content">
+                      <div class="step-text">进入代开增值税发票申请界面，在<strong>代开发票查询</strong>模块点击 <strong>【立即查询】</strong></div>
+                    </div>
+                  </div>
+                  <div class="step-card">
+                    <div class="sub-num">②</div>
+                    <div class="step-content">
+                      <div class="step-text">找到目标发票，点击 <strong>【下载】</strong> 进入预览界面</div>
+                      <div class="step-screenshot">
+                        <img src="images/2.5/2.5-10-download-query.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="step-card">
+                    <div class="sub-num">③</div>
+                    <div class="step-content">
+                      <div class="step-text">选择下载方式：<strong>二维码下载 / PDF / OFD / XML</strong></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </details>
+
+        </div>
+      </div>
+    </details>
+
+    <!-- 四、报送资料 -->
+    <details class="module-card">
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>四、报送资料</span>
+      </summary>
+      <div class="module-content">
+        <div class="tip-box" style="margin-bottom:12px;">📌 以下资料均为<strong>条件报送</strong>，根据实际业务类型按需提交，提交资料须真实合法</div>
+        <table class="doc-table">
+          <thead>
+            <tr>
+              <th style="width:40px;">#</th>
+              <th>资料名称</th>
+              <th style="width:66px;text-align:center;">条件报送</th>
+              <th style="width:54px;text-align:center;">查验</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>代开人（经办人）身份证明原件及复印件</td><td class="check">√</td><td class="check">√</td></tr>
+            <tr><td>2</td><td>购销商品、提供或接受服务的有关业务合同、协议或书面证明</td><td class="check">√</td><td class="check">√</td></tr>
+            <tr><td>3</td><td>租金偏低的证明材料</td><td class="check">√</td><td class="check">√</td></tr>
+            <tr><td>4</td><td>房屋产权（不动产）证书</td><td class="check">√</td><td class="check">√</td></tr>
+            <tr><td>5</td><td>无产权声明</td><td class="check">√</td><td class="check">√</td></tr>
+            <tr><td>6</td><td>不动产租赁合同</td><td class="check">√</td><td class="check">√</td></tr>
+            <tr><td>7</td><td>《货物运输业代开增值税专用发票缴纳税款申报单》（货物运输服务）</td><td class="check">√</td><td class="check">√</td></tr>
+            <tr><td>8</td><td>运输工具备案信息（货物运输服务）</td><td class="check">√</td><td class="check">√</td></tr>
+            <tr><td>9</td><td>可证明业务真实性的其他资料</td><td class="check">√</td><td class="check">√</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <!-- 五、注意事项 -->
+    <details class="module-card">
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>五、注意事项</span>
+      </summary>
+      <div class="module-content">
+        <div class="warn-list">
+          <div class="warn-item">
+            <span class="warn-icon">⚠️</span>
+            <span><strong>资料真实性责任：</strong>纳税人对报送材料的真实性和合法性承担责任。</span>
+          </div>
+          <div class="warn-item">
+            <span class="warn-icon">⚠️</span>
+            <span><strong>票种核定限制：</strong>已在核心征管系统中核定数电专票的小规模纳税人，<strong>不允许</strong>申请代开相应票种；未核定的小规模纳税人可申请代开。</span>
+          </div>
+          <div class="warn-item">
+            <span class="warn-icon">⚠️</span>
+            <span><strong>不动产销售：</strong>纳税人销售其取得的不动产，应向<strong>不动产所在地</strong>税务机关申请代开增值税专用发票。向其他个人转让不动产的，<strong>不得</strong>开具或申请代开增值税专用发票。</span>
+          </div>
+          <div class="warn-item">
+            <span class="warn-icon">⚠️</span>
+            <span><strong>出租不动产：</strong>向其他个人出租不动产的，<strong>不得</strong>开具或申请代开增值税专用发票。其他个人出租不动产，购买方/承租方不属于其他个人的，缴纳税费后可向不动产所在地申请代开专票。</span>
+          </div>
+          <div class="warn-item">
+            <span class="warn-icon">⚠️</span>
+            <span><strong>建筑服务：</strong>提供建筑服务，纳税人自行开具或税务机关代开增值税发票时，应在发票备注栏注明建筑服务发生地县（市、区）名称及项目名称。小规模纳税人跨县（市、区）提供建筑服务，可向<strong>建筑服务发生地</strong>主管税务机关申请代开。</span>
+          </div>
+          <div class="warn-item">
+            <span class="warn-icon">⚠️</span>
+            <span><strong>错误处理：</strong>已提交申请但<strong>未缴款</strong>的，可申请作废代开申请；<strong>已开具发票</strong>的，通过开具红字发票处理；需退回已征税款的，可向税务机关申请退税。</span>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- 六、常见问题 -->
+    <details class="module-card">
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>六、常见问题（FAQ）</span>
+      </summary>
+      <div class="module-content">
+        <div class="faq-list">
+          <div class="faq-item">
+            <div class="faq-q"><span class="q-tag">Q1</span>代开申请提交后发现信息有误，如何处理？</div>
+            <div class="faq-a">
+              <span class="a-tag">A</span>
+              <span>若<strong>尚未缴款</strong>，可直接申请<strong>作废</strong>代开申请后重新提交；若<strong>已开具发票</strong>，需通过 <strong>【开具红字发票】</strong> 进行冲销处理后重新代开。</span>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q"><span class="q-tag">Q2</span>代开申请提交后一直显示「待审核」，怎么办？</div>
+            <div class="faq-a">
+              <span class="a-tag">A</span>
+              <span>部分业务需税务人员人工审核，请耐心等待。如长时间未有结果，可携带相关资料前往<strong>办税服务厅</strong>咨询，或拨打 <strong>12366</strong> 热线查询审核进度。</span>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q"><span class="q-tag">Q3</span>已缴款但发票未自动开具，如何处理？</div>
+            <div class="faq-a">
+              <span class="a-tag">A</span>
+              <span>可在代开发票查询模块中找到对应申请记录，点击 <strong>【开具】</strong> 手动触发开票；若仍无法开具，请拨打 <strong>12366</strong> 或前往办税服务厅处理。</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+  </div>
+
+  <!-- ══ 页脚 ══ -->
+  <div class="footer">
+    如操作过程中遇到问题，请拨打纳税服务热线 <strong>12366</strong> 获取帮助 &nbsp;|&nbsp; 本手册由税务局办税服务厅制作
+    <div style="margin-top:12px;">
+      <a href="../index.html" class="btn-footer-back">← 返回目录</a>
+    </div>
+  </div>
+
+</div>
+
+<script src="../assets/lightbox.js"></script>
+<script>
+  document.querySelectorAll('.step-img').forEach(img => {
+    img.addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+  });
+</script>
+</body>
+</html>

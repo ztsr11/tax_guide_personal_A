@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
+  <title>存款账户账号报告 · 操作指引</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <style>
+    /* ===== 移动端适配优化 ===== */
+    @media (max-width: 768px) {
+      body { padding: 10px !important; }
+      .page { max-width: 100% !important; border-radius: 8px; }
+      .header { padding: 24px 16px !important; }
+      .body { padding: 16px !important; }
+      .footer { padding: 20px 16px !important; }
+      .header h1 { font-size: 22px !important; }
+      .header p { font-size: 13px !important; }
+      .step-card { flex-direction: column !important; gap: 10px; }
+      .step-num, .step-num-label { margin: 0; }
+      .section-title { font-size: 15px; margin: 20px 0 10px; }
+      .period-table, .tier-table { font-size: 12px; }
+      .period-table th, .period-table td,
+      .tier-table th, .tier-table td { padding: 8px 6px; word-break: break-word; }
+      .path-box { font-size: 12px; padding: 10px 12px; }
+      .path-box .node { padding: 2px 8px; font-size: 12px; }
+      .op-tag { font-size: 12px; padding: 2px 8px; }
+    }
+
+    /* ===== 折叠模块样式 ===== */
+    details.module-card {
+      background: #fff;
+      border-radius: 8px;
+      margin: 12px 0;
+      box-shadow: 0 2px 8px rgba(33, 118, 199, 0.08);
+      border: 1px solid #e8f3fb;
+      overflow: hidden;
+    }
+    details.module-card[open] {
+      box-shadow: 0 4px 16px rgba(33, 118, 199, 0.15);
+    }
+    summary.module-header {
+      padding: 14px 16px;
+      font-weight: 700;
+      color: #1a4a7a;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f4f9fd;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    summary.module-header::-webkit-details-marker { display: none; }
+    summary.module-header:hover { background: #e8f3fb; }
+    summary.module-header:active { opacity: 0.9; }
+    
+    .toggle-icon {
+      font-size: 12px;
+      transition: transform 0.2s;
+      color: #2176c7;
+    }
+    details[open] .toggle-icon {
+      transform: rotate(90deg);
+    }
+    .module-content {
+      padding: 16px;
+      border-top: 1px solid #e8f3fb;
+    }
+
+    /* ===== 本页专属样式 ===== */
+    .op-tag {
+      background: var(--gradient);
+      color: #fff;
+      border-radius: 5px;
+      padding: 3px 12px;
+      font-size: 13px;
+      display: inline-block;
+      margin: 2px;
+    }
+    .scene-subtitle {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1a4a7a;
+      background: #e8f3fb;
+      border-left: 4px solid #2176c7;
+      border-radius: 0 8px 8px 0;
+      padding: 8px 16px;
+      margin: 20px 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ Lightbox 遮罩 ══ -->
+<div class="lightbox-overlay" id="lightbox" onclick="closeLightbox(event)">
+  <div class="lightbox-close" onclick="closeLightboxDirect()">✕</div>
+  <img id="lightbox-img" src="" alt="图片预览" onclick="event.stopPropagation()" />
+  <div class="lightbox-hint">点击空白处或按 ESC 关闭</div>
+</div>
+
+<div class="page">
+
+  <!-- ===== 页头 ===== -->
+  <div class="header">
+    <div class="header-top">
+      <div class="tag">电子税务局 · 操作指引</div>
+      <a href="../index.html" class="btn-back">← 返回目录</a>
+    </div>
+    <h1>存款账户账号报告</h1>
+    <p>本指引适用于纳税人在电子税务局进行银行存款账户的新增、变更、注销报告，<br>
+       以及签订银税三方（委托）划缴协议的操作<br>
+       如遇问题请拨打 <strong>12366</strong> 纳税服务热线</p>
+    <div class="badges">
+      <span class="badge">🏦 存款账户报告</span>
+      <span class="badge">🤝 三方协议</span>
+      <span class="badge">🖥️ 网页端</span>
+      <span class="badge">📋 新增 / 变更 / 注销</span>
+    </div>
+  </div>
+
+  <!-- ===== 正文 ===== -->
+  <div class="body">
+
+    <!-- 一、适用对象 -->
+    <details class="module-card" open>
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>一、适用对象</span>
+      </summary>
+      <div class="module-content">
+        <div class="info-box">
+          ✅ &nbsp;需向税务机关<strong>报告银行存款账户信息</strong>的纳税人<br>
+          ✅ &nbsp;需要<strong>新增、变更或注销</strong>已报告账户信息的纳税人<br>
+          ✅ &nbsp;需要签订或终止<strong>银税三方（委托）划缴协议</strong>的纳税人
+        </div>
+      </div>
+    </details>
+
+    <!-- 二、操作路径 -->
+    <details class="module-card" open>
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>二、操作路径</span>
+      </summary>
+      <div class="module-content">
+        <div class="info-box" style="margin-bottom:12px;">以下三种方式均可进入功能，任选其一即可：</div>
+        <div class="path-box">
+          <span class="path-label">方式一</span>
+          <span class="node">我要办税</span>
+          <span class="arrow">→</span>
+          <span class="node">综合信息报告</span>
+          <span class="arrow">→</span>
+          <span class="node">制度信息报告</span>
+          <span class="arrow">→</span>
+          <span class="node">存款账户账号报告</span>
+        </div>
+        <div class="path-box">
+          <span class="path-label">方式二</span>
+          <span class="node">首页消息提醒</span>
+          <span class="arrow">→</span>
+          <span class="node">点击跳转链接直接进入</span>
+        </div>
+        <div class="path-box">
+          <span class="path-label">方式三</span>
+          <span class="node">首页搜索栏</span>
+          <span class="arrow">→</span>
+          <span class="node">输入"存款账户"</span>
+          <span class="arrow">→</span>
+          <span class="node">点击搜索结果进入</span>
+        </div>
+      </div>
+    </details>
+
+    <!-- 三、操作步骤 -->
+    <details class="module-card">
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>三、操作步骤</span>
+      </summary>
+      <div class="module-content">
+        <div class="steps">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <div class="step-text">登录电子税务局，按路径进入 <strong>【存款账户账号报告】</strong> 功能</div>
+              <div class="step-screenshot">
+                <img src="images/1.4/1.4-01-menu.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" />
+              </div>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <div class="step-text">进入功能界面，页面展示<strong>已采集的存款账户信息列表</strong>，可进行以下操作：</div>
+              <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px;">
+                <span class="op-tag">新增账户</span>
+                <span class="op-tag">变更</span>
+                <span class="op-tag">注销</span>
+                <span class="op-tag">签协议</span>
+              </div>
+              <div class="step-screenshot">
+                <img src="images/1.4/1.4-02-list.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 场景一：新增 -->
+        <details class="module-card" style="margin:10px 0; box-shadow:none; border:1px solid #eee;">
+          <summary class="module-header" style="padding:10px 12px; font-size:14px; background:#fff;">
+            <span class="toggle-icon">▶</span>
+            <span>➕ 新增存款账户</span>
+          </summary>
+          <div class="module-content" style="padding:12px; border:none;">
+            <div class="steps">
+              <div class="step-card">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                  <div class="step-text">点击 <strong>【新增账户】</strong>，跳转至新增账户填写界面</div>
+                  <div class="step-screenshot">
+                    <img src="images/1.4/1.4-03-add-btn.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="step-card">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                  <div class="step-text">填写银行账户信息。<strong>开户银行</strong>栏可输入关键字搜索，填写完毕后点击 <strong>【提交】</strong></div>
+                  <div class="step-screenshot">
+                    <img src="images/1.4/1.4-04-add-form.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="step-card">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                  <div class="step-text">弹出确认框，展示所填写的<strong>开户银行和账号信息</strong>，核对无误后点击 <strong>【确认】</strong></div>
+                  <div class="step-screenshot">
+                    <img src="images/1.4/1.4-05-add-confirm.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="step-card">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                  <div class="step-text">跳转至提交成功界面，可进行以下操作：</div>
+                  <div class="success-box">
+                    ✅ 系统提示：<strong>"您的新增存款账户账号申请已完成"</strong><br>
+                    &nbsp;&nbsp;• 点击 <strong>【纳税人存款账户账号报告表】</strong> → 下载 PDF 表单留存<br>
+                    &nbsp;&nbsp;• 点击 <strong>【立即办理银税三方（委托）划缴协议】</strong> → 跳转签订三方协议<br>
+                    &nbsp;&nbsp;• 点击 <strong>【继续办理】</strong> → 返回功能界面继续操作<br>
+                    &nbsp;&nbsp;• 点击 <strong>【返回首页】</strong> → 返回系统首页
+                  </div>
+                  <div class="step-screenshot">
+                    <img src="images/1.4/1.4-06-add-success.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 特殊情形说明 -->
+            <div class="special-box">
+              <div class="sp-title">📌 特殊情形说明</div>
+              <strong>① 报验户 / 跨区税源户：</strong>点击【新增】后，可选择<strong>同步注册地账户信息</strong>，点击【确定】获取注册地主管税务机关的银行账号信息并预填，支持修改。若未获取到信息，系统提示选择<strong>手工录入</strong>。<br><br>
+              <strong>② 分支机构：</strong>点击【新增】后，可选择<strong>同步总机构账户信息</strong>，点击【确定】后信息自动带入填写页面，支持修改。
+            </div>
+          </div>
+        </details>
+
+        <hr class="divider">
+
+        <!-- 场景二：变更 -->
+        <details class="module-card" style="margin:10px 0; box-shadow:none; border:1px solid #eee;">
+          <summary class="module-header" style="padding:10px 12px; font-size:14px; background:#fff;">
+            <span class="toggle-icon">▶</span>
+            <span>✏️ 变更存款账户信息</span>
+          </summary>
+          <div class="module-content" style="padding:12px; border:none;">
+            <div class="steps">
+              <div class="step-card">
+                <div class="step-num-label">未签<br>协议</div>
+                <div class="step-content">
+                  <div class="step-text">点击对应账户的 <strong>【变更】</strong>，进入变更页面，修改信息后点击 <strong>【提交】</strong></div>
+                  <div class="step-screenshot">
+                    <img src="images/1.4/1.4-07-edit-normal.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" />
+                  </div>
+                  <div class="success-box">
+                    ✅ 提交成功后，可下载报告表、跳转签订三方协议或返回继续办理（同新增成功页面操作）
+                  </div>
+                </div>
+              </div>
+
+              <div class="step-card">
+                <div class="step-num-label">已签<br>协议</div>
+                <div class="step-content">
+                  <div class="step-text">点击 <strong>【变更】</strong> 后，页面顶部提示：</div>
+                  <div class="tip-box" style="margin-bottom:10px;">
+                    ⚠️ <strong>"此账户已签订三方协议信息，部分信息无法修改，如需变更请先终止三方协议。"</strong><br>
+                    &nbsp;&nbsp;• 如需变更受限字段 → 点击 <strong>【终止三方协议】</strong> 后再操作<br>
+                    &nbsp;&nbsp;• 如只变更<strong>账户名称、首选缴税账户、一般退税账户标识</strong> → 可直接修改并提交，无需终止协议
+                  </div>
+                  <div class="step-screenshot">
+                    <img src="images/1.4/1.4-08-edit-triparty.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" />
+                  </div>
+                  <div class="success-box">
+                    ✅ 提交成功后，操作同上（下载表单 / 签订协议 / 返回）
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <hr class="divider">
+
+        <!-- 场景三：注销 -->
+        <details class="module-card" style="margin:10px 0; box-shadow:none; border:1px solid #eee;">
+          <summary class="module-header" style="padding:10px 12px; font-size:14px; background:#fff;">
+            <span class="toggle-icon">▶</span>
+            <span>🗑️ 注销存款账户</span>
+          </summary>
+          <div class="module-content" style="padding:12px; border:none;">
+            <div class="steps">
+              <div class="step-card">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                  <div class="step-text">在账户列表中，点击需注销账户的 <strong>【注销】</strong> 按钮</div>
+                  <div class="step-screenshot">
+                    <img src="images/1.4/1.4-09-cancel-btn.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" />
+                  </div>
+                </div>
+              </div>
+              <div class="step-card">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                  <div class="step-text">弹出输入框，点击 <strong>【确定】</strong></div>
+                  <div class="step-screenshot">
+                    <img src="images/1.4/1.4-10-cancel-date.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" />
+                  </div>
+                </div>
+              </div>
+              <div class="step-card">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                  <div class="step-text">跳转至注销成功界面</div>
+                  <div class="success-box">
+                    ✅ 系统提示：<strong>"您的存款账户账号已注销，并同步终止三方协议"</strong><br>
+                    &nbsp;&nbsp;• 点击 <strong>【纳税人存款账户账号报告表】</strong> → 下载 PDF 表单<br>
+                    &nbsp;&nbsp;• 点击 <strong>【返回】</strong> → 返回系统首页<br><br>
+                    💡 <strong>注意：</strong>无论该账户是否已签订三方协议，注销时系统均会<strong>自动同步终止</strong>对应协议，无需手动操作。
+                  </div>
+                  <div class="step-screenshot">
+                    <img src="images/1.4/1.4-11-cancel-success.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <hr class="divider">
+
+        <!-- 场景四：签协议 -->
+        <details class="module-card" style="margin:10px 0; box-shadow:none; border:1px solid #eee;">
+          <summary class="module-header" style="padding:10px 12px; font-size:14px; background:#fff;">
+            <span class="toggle-icon">▶</span>
+            <span>🤝 签订三方协议</span>
+          </summary>
+          <div class="module-content" style="padding:12px; border:none;">
+            <div class="steps">
+              <div class="step-card">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                  <div class="step-text">在账户列表中，点击对应账户的 <strong>【签协议】</strong>，系统跳转至<strong>银税三方（委托）划缴协议</strong>签订界面，按页面提示完成签订操作</div>
+                  <div class="step-screenshot">
+                    <img src="images/1.4/1.4-12-triparty.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" />
+                  </div>
+                  <div class="tip-box">💡 三方协议签订后，税务机关可在您应缴税款时直接从该账户扣划，无需每次手动缴款，操作更便捷。</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+      </div>
+    </details>
+
+    <!-- 四、注意事项 -->
+    <details class="module-card">
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>四、注意事项</span>
+      </summary>
+      <div class="module-content">
+        <div class="warn-list">
+          <div class="warn-item">
+            <span class="warn-icon">⚠️</span>
+            <span><strong>报送信息须真实合法：</strong>纳税人对所填报材料的<strong>真实性和合法性</strong>承担责任，请如实填写账户信息。</span>
+          </div>
+          <div class="warn-item">
+            <span class="warn-icon">⚠️</span>
+            <span><strong>账户唯一性要求：</strong>纳税人的<strong>一般退税账户</strong>和<strong>首选缴税账户</strong>均只能设置<strong>一个</strong>，如需更换请先将原账户的标识取消。</span>
+          </div>
+          <div class="warn-item">
+            <span class="warn-icon">⚠️</span>
+            <span><strong>已签协议账户的变更限制：</strong>已签订三方协议的账户，仅可直接变更<strong>账户名称、首选缴税账户、一般退税账户标识</strong>，其他信息需先终止协议后方可修改。</span>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- 五、常见问题 -->
+    <details class="module-card">
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>五、常见问题（FAQ）</span>
+      </summary>
+      <div class="module-content">
+        <div class="faq-list">
+          <div class="faq-item">
+            <div class="faq-q"><span class="q-tag">Q1</span>已签订三方协议的银行账户，可以直接变更哪些信息？</div>
+            <div class="faq-a">
+              <span class="a-tag">A</span>
+              <span>可直接变更的信息包括：<strong>账户名称、首选缴税账户标识、一般退税账户标识</strong>，其余信息因受协议约束无法直接修改。</span>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q"><span class="q-tag">Q2</span>我想变更已签三方协议账户的其他信息（如账号），怎么操作？</div>
+            <div class="faq-a">
+              <span class="a-tag">A</span>
+              <span>有两种方式：① <strong>新增</strong>一条正确的存款账户报告，再重新签订三方协议；② 先进入账户报告功能<strong>终止三方协议</strong>，再修改账户信息，修改完成后根据需要重新签订协议。</span>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q"><span class="q-tag">Q3</span>注销账户时，需要手动终止三方协议吗？</div>
+            <div class="faq-a">
+              <span class="a-tag">A</span>
+              <span>不需要。注销账户时，系统会<strong>自动同步终止</strong>该账户关联的三方协议，无需单独操作。</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- 六、本节小结 -->
+    <details class="module-card" open>
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>六、本节小结</span>
+      </summary>
+      <div class="module-content">
+        <div class="tip-box" style="background:#f0fdf4; border-left:4px solid #22c55e; padding:16px 20px;">
+          ✅ <strong>本节小结：</strong>
+          <ul style="margin-top:10px; padding-left:20px; line-height:2.2; color:var(--text-title);">
+            <li>功能路径：<strong>我要办税 → 综合信息报告 → 制度信息报告 → 存款账户账号报告</strong></li>
+            <li>支持对银行账户进行<strong>新增、变更、注销</strong>，以及<strong>签订三方协议</strong></li>
+            <li>已签三方协议的账户，仅可直接变更<strong>账户名称、首选缴税账户、一般退税账户标识</strong></li>
+            <li>注销账户时，系统将<strong>自动终止</strong>关联的三方协议</li>
+            <li>一般退税账户与首选缴税账户各只能设置<strong>一个</strong></li>
+            <li>报验户、跨区税源户、分支机构可通过<strong>同步上级机构账户信息</strong>快速填写</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+  </div>
+
+  <!-- ===== 页脚 ===== -->
+  <div class="footer">
+    如操作过程中遇到问题，请拨打纳税服务热线 <strong>12366</strong> 获取帮助 &nbsp;|&nbsp; 本手册由税务局办税服务厅制作
+    <div style="margin-top:12px;">
+      <a href="../index.html" class="btn-footer-back">← 返回目录</a>
+    </div>
+  </div>
+
+</div>
+
+<script src="../assets/lightbox.js"></script>
+<script>
+  document.querySelectorAll('.step-img').forEach(img => {
+    img.addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+  });
+</script>
+</body>
+</html>

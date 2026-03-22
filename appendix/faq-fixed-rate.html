@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
+  <title>定额／定率征收的申报为什么不能填成本？· 常见问题</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <style>
+    /* ===== 移动端适配优化 ===== */
+    @media (max-width: 768px) {
+      body { padding: 10px !important; }
+      .page { max-width: 100% !important; border-radius: 8px; }
+      .header { padding: 24px 16px !important; }
+      .body { padding: 16px !important; }
+      .footer { padding: 20px 16px !important; }
+      .header h1 { font-size: 22px !important; }
+      .header p { font-size: 13px !important; }
+      .step-card { flex-direction: column !important; gap: 10px; }
+      .step-num { margin: 0; }
+      .section-title { font-size: 15px; margin: 20px 0 10px; }
+      .concept-grid { grid-template-columns: 1fr !important; }
+      .period-table, .compare-table { font-size: 12px; }
+      .period-table th, .period-table td,
+      .compare-table th, .compare-table td { padding: 8px 6px; word-break: break-word; }
+    }
+
+    /* ===== 折叠模块样式 ===== */
+    details.module-card {
+      background: #fff;
+      border-radius: 8px;
+      margin: 12px 0;
+      box-shadow: 0 2px 8px rgba(33, 118, 199, 0.08);
+      border: 1px solid #e8f3fb;
+      overflow: hidden;
+    }
+    details.module-card[open] {
+      box-shadow: 0 4px 16px rgba(33, 118, 199, 0.15);
+    }
+    summary.module-header {
+      padding: 14px 16px;
+      font-weight: 700;
+      color: #1a4a7a;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f4f9fd;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    summary.module-header::-webkit-details-marker { display: none; }
+    summary.module-header:hover { background: #e8f3fb; }
+    summary.module-header:active { opacity: 0.9; }
+    
+    .toggle-icon {
+      font-size: 12px;
+      transition: transform 0.2s;
+      color: #2176c7;
+    }
+    details[open] .toggle-icon {
+      transform: rotate(90deg);
+    }
+    .module-content {
+      padding: 16px;
+      border-top: 1px solid #e8f3fb;
+    }
+
+    /* ===== 本页专属样式（保留原有） ===== */
+    .faq-anchor-list {
+      display: flex; flex-direction: column; gap: 8px;
+      margin-bottom: 4px;
+    }
+    .faq-anchor-item {
+      display: flex; gap: 10px; align-items: center;
+      background: #f0f7ff;
+      border: 1px solid #b8d9f5;
+      border-left: 4px solid #2e6da4;
+      border-radius: 0 8px 8px 0;
+      padding: 10px 16px;
+      font-size: 14px; color: #1e3a5f;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .faq-anchor-item:hover { background: #dceefb; }
+    .faq-anchor-num {
+      background: #2e6da4; color: #fff;
+      border-radius: 50%; width: 24px; height: 24px;
+      font-size: 12px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+      margin-top: 10px;
+    }
+    .compare-table th {
+      background: #2e6da4;
+      color: #fff; padding: 10px 16px;
+      text-align: left; font-weight: 600;
+    }
+    .compare-table td {
+      padding: 10px 16px;
+      border-bottom: 1px solid #d0e4f7;
+      background: #f8fbff; color: #2d3748;
+      line-height: 1.7;
+    }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table tr:nth-child(even) td { background: #eaf4fb; }
+    .compare-table .tag-yes {
+      display: inline-block;
+      background: #27ae60; color: #fff;
+      border-radius: 4px; padding: 1px 8px;
+      font-size: 12px; font-weight: 700;
+    }
+    .compare-table .tag-no {
+      display: inline-block;
+      background: #e74c3c; color: #fff;
+      border-radius: 4px; padding: 1px 8px;
+      font-size: 12px; font-weight: 700;
+    }
+    .concept-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    @media (max-width: 600px) {
+      .concept-grid { grid-template-columns: 1fr; }
+    }
+    .concept-card {
+      background: #f8fbff;
+      border: 1px solid #d0e4f7;
+      border-top: 3px solid #2e6da4;
+      border-radius: 0 0 8px 8px;
+      padding: 14px 16px;
+      font-size: 13px; color: #2d3748; line-height: 1.8;
+    }
+    .concept-card .concept-title {
+      font-size: 14px; font-weight: 700;
+      color: #1e3a5f; margin-bottom: 6px;
+    }
+    .conclusion-box {
+      background: #f0fdf4;
+      border: 1px solid #86efac;
+      border-left: 4px solid #22c55e;
+      border-radius: 0 8px 8px 0;
+      padding: 14px 18px;
+      font-size: 14px; color: #14532d;
+      line-height: 1.9; margin-top: 10px;
+    }
+    .error-box {
+      background: #fff5f5;
+      border: 1px solid #fca5a5;
+      border-left: 4px solid #e74c3c;
+      border-radius: 0 8px 8px 0;
+      padding: 12px 16px;
+      font-size: 13px; color: #7f1d1d;
+      line-height: 1.8; margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ══ 页头 ══ -->
+  <div class="header">
+    <div class="header-top">
+      <div class="tag">附录 · 常见问题解答</div>
+      <a href="../index.html" class="btn-back">← 返回目录</a>
+    </div>
+    <h1>定额 / 定率征收的申报<br>为什么不能填成本？</h1>
+    <p>本文解答个体工商户、小规模纳税人在定额 / 定率征收方式下<br>
+       申报个人所得税时，为何无法填写成本费用的常见疑问</p>
+    <div class="badges">
+      <span class="badge">👤 个体工商户</span>
+      <span class="badge">📋 经营所得</span>
+      <span class="badge">💡 概念解析</span>
+    </div>
+  </div>
+
+  <!-- ══ 正文 ══ -->
+  <div class="body">
+
+    <!-- 快速导航 (保持展开) -->
+    <details class="module-card" open>
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>📌 本文解答以下问题 (点击可跳转)</span>
+      </summary>
+      <div class="module-content">
+        <div class="faq-anchor-list">
+          <a class="faq-anchor-item" href="#q1">
+            <span class="faq-anchor-num">1</span>
+            定额 / 定率征收是什么？和查账征收有什么区别？
+          </a>
+          <a class="faq-anchor-item" href="#q2">
+            <span class="faq-anchor-num">2</span>
+            为什么定额 / 定率征收不能填成本费用？
+          </a>
+          <a class="faq-anchor-item" href="#q3">
+            <span class="faq-anchor-num">3</span>
+            申报表里的「应纳税所得额」是怎么算出来的？
+          </a>
+          <a class="faq-anchor-item" href="#q4">
+            <span class="faq-anchor-num">4</span>
+            定额征收：实际开票超过核定额怎么办？
+          </a>
+          <a class="faq-anchor-item" href="#q5">
+            <span class="faq-anchor-num">5</span>
+            定率征收：我实际成本很高，会不会多交税？
+          </a>
+          <a class="faq-anchor-item" href="#q6">
+            <span class="faq-anchor-num">6</span>
+            想按实际成本申报，可以换成查账征收吗？
+          </a>
+        </div>
+      </div>
+    </details>
+
+    <!-- Q1 -->
+    <details class="module-card" id="q1">
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>Q1 定额 / 定率征收是什么？和查账征收有什么区别？</span>
+      </summary>
+      <div class="module-content">
+        <div class="info-box">
+          个人所得税（经营所得）的征收方式分为三种：<strong>查账征收、定率征收、定额征收</strong>。税务机关根据纳税人的账簿健全程度、经营规模等情况核定适用哪种方式。
+        </div>
+        <div class="concept-grid">
+          <div class="concept-card">
+            <div class="concept-title">📒 查账征收</div>
+            账簿健全、能准确核算收入与成本<br>
+            → <strong>按实际利润</strong>计算应纳税所得额<br>
+            → <strong>可以填写成本、费用、损失</strong>
+          </div>
+          <div class="concept-card">
+            <div class="concept-title">📊 定率征收</div>
+            账簿不健全，但能核算收入<br>
+            → 税务机关核定一个<strong>应税所得率</strong><br>
+            → 应纳税所得额 = 收入 × 所得率<br>
+            → <strong>不填成本，所得率已含成本因素</strong>
+          </div>
+          <div class="concept-card">
+            <div class="concept-title">🔢 定额征收</div>
+            收入也难以准确核算<br>
+            → 税务机关直接核定一个<strong>固定应纳税所得额</strong><br>
+            → 按期缴纳，无需填收入或成本<br>
+            → <strong>税额已固定，成本无从填起</strong>
+          </div>
+          <div class="concept-card">
+            <div class="concept-title">⚖️ 三种方式对比</div>
+            账簿健全程度：查账 ＞ 定率 ＞ 定额<br>
+            核算复杂程度：查账 ＞ 定率 ＞ 定额<br>
+            纳税人自主空间：查账 ＞ 定率 ＞ 定额
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- Q2 -->
+    <details class="module-card" id="q2">
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>Q2 为什么定额 / 定率征收不能填成本费用？</span>
+      </summary>
+      <div class="module-content">
+        <div class="info-box">
+          核心原因：<strong>成本费用已经被「内嵌」进征收方式本身了</strong>，不需要也不允许再单独填写。
+        </div>
+        <div class="tip-box" style="margin-top:10px;">
+          💡 <strong>定率征收的逻辑：</strong><br>
+          税务机关在核定「应税所得率」时，已经综合考虑了该行业的<strong>平均成本水平、费用结构</strong>等因素。<br><br>
+          例如：某行业核定所得率为 <strong>10%</strong>，意味着税务机关认为该行业平均有 <strong>90% 的收入用于成本费用</strong>，剩余 10% 为利润。<br><br>
+          因此，<strong>所得率本身就是对成本的替代性核定</strong>，再填写成本费用会造成重复扣除，系统不允许此操作。
+        </div>
+        <div class="tip-box" style="margin-top:10px;">
+          💡 <strong>定额征收的逻辑：</strong><br>
+          税务机关直接核定了你每期的应纳税所得额，这个金额已经综合考虑了你的经营规模、行业特点、成本水平等因素。<br><br>
+          既然应纳税所得额已经固定，收入和成本都不再是计税依据，自然也就没有填写成本的入口。
+        </div>
+        <div class="error-box">
+          ❌ <strong>常见误区：</strong>「我有真实的成本发票，为什么不让我填？」<br><br>
+          持有成本发票 ≠ 可以在定率 / 定额申报中扣除成本。<br>
+          定率 / 定额征收下，<strong>成本发票不影响当期税额计算</strong>。如果你认为实际利润率远低于核定所得率，应当申请<strong>变更为查账征收</strong>，而不是强行在申报表中填写成本。
+        </div>
+      </div>
+    </details>
+
+    <!-- Q3 -->
+    <details class="module-card" id="q3">
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>Q3 申报表里的「应纳税所得额」是怎么算出来的？</span>
+      </summary>
+      <div class="module-content">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>征收方式</th>
+              <th>计算公式</th>
+              <th>成本费用栏</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>查账征收</strong></td>
+              <td>收入总额 − 成本 − 费用 − 损失 − 减免项目</td>
+              <td><span class="tag-yes">可填写</span></td>
+            </tr>
+            <tr>
+              <td><strong>定率征收</strong></td>
+              <td>收入总额 × 应税所得率</td>
+              <td><span class="tag-no">不可填写</span></td>
+            </tr>
+            <tr>
+              <td><strong>定额征收</strong></td>
+              <td>税务机关直接核定应纳税所得额</td>
+              <td><span class="tag-no">不可填写</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="conclusion-box">
+          ✅ <strong>小结：</strong>定率征收下，你只需如实填写<strong>收入总额</strong>，系统会自动乘以核定所得率得出应纳税所得额，再按税率表计算税额；定额征收下，应纳税所得额已由税务机关核定，按期缴纳即可。<br><br>
+          ⚠️ <strong>定额征收特别注意：</strong>核定应纳税所得额是<strong>下限而非上限</strong>。若实际开票收入超过核定额度，需就超出部分<strong>按实际收入补充申报、补缴税款</strong>，不可仅按核定额缴纳了事。
+        </div>
+      </div>
+    </details>
+
+    <!-- Q4 -->
+    <details class="module-card" id="q4">
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>Q4 定额征收：实际开票超过核定额怎么办？</span>
+      </summary>
+      <div class="module-content">
+        <div class="info-box">
+          定额征收的核定应纳税所得额是<strong>最低缴纳标准</strong>，而非封顶。一旦实际开票收入超过核定额度对应的收入水平，必须就<strong>超出部分按实际申报补缴</strong>。
+        </div>
+        <div class="tip-box">
+          💡 <strong>举例说明：</strong><br>
+          税务机关核定你每月应纳税所得额为 <strong>100,000 元</strong>。<br>
+          某月你实际开票收入超过了该核定收入标准，则该月<strong>不能只缴 100,000 元所对应的税款</strong>，需就实际收入重新计算税额并补缴差额。
+        </div>
+        <div class="warn-list">
+          <div class="warn-item">
+            <span class="warn-icon">⚠️</span>
+            <span><strong>如何判断是否超额？</strong>以当期实际开具发票的金额为准。若当期开票金额超过税务机关核定的收入标准，即视为超额，需补充申报。</span>
+          </div>
+          <div class="warn-item">
+            <span class="warn-icon">⚠️</span>
+            <span><strong>超额部分如何申报？</strong>在申报表中如实填写实际收入，系统将自动计算应纳税额；实际税额高于核定税额的，按实际税额缴纳；低于核定税额的，仍按核定税额缴纳。</span>
+          </div>
+          <div class="warn-item">
+            <span class="warn-icon">⚠️</span>
+            <span><strong>不申报超额的风险：</strong>若长期开票金额超过核定额而未补申报，税务机关可通过发票数据比对发现差异，可能面临<strong>补税、罚款及加收滞纳金</strong>的风险。</span>
+          </div>
+        </div>
+        <div class="conclusion-box">
+          ✅ <strong>小结：</strong>定额征收 = 保底缴纳，不是一劳永逸。每期申报时应主动核对实际开票收入是否超过核定标准，<strong>超出则按实际，未超出则按核定</strong>，两者取其高。
+        </div>
+      </div>
+    </details>
+
+    <!-- Q5 -->
+    <details class="module-card" id="q5">
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>Q5 定率征收：我实际成本很高，会不会多交税？</span>
+      </summary>
+      <div class="module-content">
+        <div class="info-box">
+          有可能。定率征收是基于<strong>行业平均水平</strong>核定的，如果你的实际成本高于行业平均水平，定率征收可能导致你缴纳的税款高于按实际利润计算的结果。
+        </div>
+        <div class="warn-list">
+          <div class="warn-item">
+            <span class="warn-icon">⚠️</span>
+            <span><strong>举例说明：</strong>某行业核定所得率 15%，你的收入为 100 万元，则应纳税所得额为 15 万元。但如果你实际成本高达 90 万元，实际利润仅 10 万元，按定率征收反而多交了税。</span>
+          </div>
+          <div class="warn-item">
+            <span class="warn-icon">⚠️</span>
+            <span><strong>建议：</strong>如果你的账簿健全、能准确核算收入与成本，且实际利润率持续低于核定所得率，可以向主管税务机关申请<strong>变更为查账征收</strong>，按实际利润纳税，避免多缴。</span>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- Q6 -->
+    <details class="module-card" id="q6">
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>Q6 想按实际成本申报，可以换成查账征收吗？</span>
+      </summary>
+      <div class="module-content">
+        <div class="info-box">
+          可以申请，但需满足一定条件，且由税务机关审核决定。
+        </div>
+        <div class="steps">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <div class="step-text"><strong>前提条件</strong>：账簿健全，能够准确、完整地核算收入总额和成本费用，并能提供合法有效的凭证</div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <div class="step-text"><strong>申请方式</strong>：携带相关资料前往<strong>主管税务机关办税服务厅</strong>提出申请，或拨打 <strong>12366</strong> 咨询具体流程</div>
+            </div>
+          </div>
+        </div>
+        <div class="conclusion-box">
+          ✅ <strong>总结：</strong>定额 / 定率征收下不能填成本，是因为成本因素已内嵌于征收方式的核定逻辑中，并非税务机关「不让扣成本」，而是<strong>换了一种方式来体现成本</strong>。如需按实际成本申报，应申请变更为查账征收，并做好日常账簿管理。
+        </div>
+      </div>
+    </details>
+
+  </div>
+
+  <!-- ══ 页脚 ══ -->
+  <div class="footer">
+    如操作过程中遇到问题，请拨打纳税服务热线 <strong>12366</strong> 获取帮助 &nbsp;|&nbsp; 本手册由税务局办税服务厅制作
+    <div style="margin-top:12px;">
+      <a href="../index.html" class="btn-footer-back">← 返回目录</a>
+    </div>
+  </div>
+
+</div>
+
+<script src="../assets/lightbox.js"></script>
+<script>
+  document.querySelectorAll('.step-img').forEach(img => {
+    img.addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+  });
+</script>
+</body>
+</html>

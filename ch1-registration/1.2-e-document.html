@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
+  <title>1.2 电子文书送达协议签订 · 操作指引</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <style>
+    /* ===== 移动端适配优化 ===== */
+    @media (max-width: 768px) {
+      body { padding: 10px !important; }
+      .page { max-width: 100% !important; border-radius: 8px; }
+      .header { padding: 24px 16px !important; }
+      .body { padding: 16px !important; }
+      .footer { padding: 20px 16px !important; }
+      .header h1 { font-size: 22px !important; }
+      .header p { font-size: 13px !important; }
+      .step-card { flex-direction: column !important; gap: 10px; }
+      .step-num { margin: 0; }
+      .section-title { font-size: 15px; margin: 20px 0 10px; }
+      .period-table { font-size: 12px; }
+      .period-table th, .period-table td { padding: 8px 6px; word-break: break-word; }
+    }
+
+    /* ===== 折叠模块样式 ===== */
+    details.module-card {
+      background: #fff;
+      border-radius: 8px;
+      margin: 12px 0;
+      box-shadow: 0 2px 8px rgba(33, 118, 199, 0.08);
+      border: 1px solid #e8f3fb;
+      overflow: hidden;
+    }
+    details.module-card[open] {
+      box-shadow: 0 4px 16px rgba(33, 118, 199, 0.15);
+    }
+    summary.module-header {
+      padding: 14px 16px;
+      font-weight: 700;
+      color: #1a4a7a;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f4f9fd;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    summary.module-header::-webkit-details-marker { display: none; }
+    summary.module-header:hover { background: #e8f3fb; }
+    summary.module-header:active { opacity: 0.9; }
+    
+    .toggle-icon {
+      font-size: 12px;
+      transition: transform 0.2s;
+      color: #2176c7;
+    }
+    details[open] .toggle-icon {
+      transform: rotate(90deg);
+    }
+    .module-content {
+      padding: 16px;
+      border-top: 1px solid #e8f3fb;
+    }
+
+    /* ===== 路径导航框样式 ===== */
+    .path-nav {
+      background: #f8fafc;
+      border: 1px solid #d0e4f7;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin: 14px 0;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 13px;
+    }
+    .path-nav .path-label { color: #718096; font-weight: 600; }
+    .path-nav .node {
+      background: #2e6da4;
+      color: #fff;
+      padding: 4px 12px;
+      border-radius: 5px;
+      font-weight: 600;
+    }
+    .path-nav .arrow { color: #9ca3af; font-size: 16px; font-weight: 700; }
+
+    /* ===== 状态提示框样式 ===== */
+    .status-signed {
+      background: #fff1f2;
+      border: 1px solid #fca5a5;
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-top: 12px;
+    }
+    .status-signed .title { font-weight: 700; color: #dc2626; margin-bottom: 6px; }
+    .status-signed .desc { font-size: 13px; line-height: 1.8; color: #374151; }
+    .status-signed .highlight { background: #fee2e2; padding: 2px 8px; border-radius: 4px; font-style: italic; }
+
+    .status-unsigned {
+      background: #eff6ff;
+      border: 1px solid #93c5fd;
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-top: 16px;
+    }
+    .status-unsigned .title { font-weight: 700; color: #1d4ed8; margin-bottom: 6px; }
+    .status-unsigned .desc { font-size: 13px; line-height: 1.8; color: #374151; }
+  </style>
+</head>
+<body>
+
+<!-- ══ Lightbox 遮罩 ══ -->
+<div class="lightbox-overlay" id="lightbox" onclick="closeLightbox(event)">
+  <div class="lightbox-close" onclick="closeLightboxDirect()">✕</div>
+  <img id="lightbox-img" src="" alt="图片预览" onclick="event.stopPropagation()" />
+  <div class="lightbox-hint">点击空白处或按 ESC 关闭</div>
+</div>
+
+<div class="page">
+
+  <!-- 页头 -->
+  <div class="header">
+    <div class="header-top">
+      <div class="tag">电子税务局 · 操作指引</div>
+      <a href="../index.html" class="btn-back">← 返回目录</a>
+    </div>
+    <h1>📨 电子文书送达协议签订</h1>
+    <p>税务文书电子送达确认书签订全流程指引<br>
+       涵盖三种签订方式，已签订状态识别及常见问题解答</p>
+    <div class="badges">
+      <span class="badge">🖥️ 网页端适用</span>
+      <span class="badge">📞 问题热线：12366</span>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <!-- 前置说明 (默认展开) -->
+    <details class="module-card" open>
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>💡 什么是税务文书电子送达？</span>
+      </summary>
+      <div class="module-content">
+        <div class="info-box">
+          税务机关通过电子税务局向纳税人送达税务文书（如税务检查通知、处罚决定等），与纸质送达具有同等法律效力。签订确认书后，税务机关将优先采用电子方式送达，请确保及时登录电子税务局查收相关文书。
+        </div>
+      </div>
+    </details>
+
+    <!-- 三种方式总览 -->
+    <details class="module-card" open>
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>📌 三种签订方式总览——选择适合你的方式</span>
+      </summary>
+      <div class="module-content">
+        <table class="period-table">
+          <thead>
+            <tr>
+              <th>签订方式</th>
+              <th>触发场景</th>
+              <th>操作难度</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>方式一</strong> · 登录时弹窗提示</td>
+              <td>首次登录电子税务局，系统自动弹出提示</td>
+              <td>⭐ 最简单</td>
+            </tr>
+            <tr>
+              <td><strong>方式二</strong> · 首页"我的提醒"入口</td>
+              <td>首页存在协议签订提醒条目时可用</td>
+              <td>⭐⭐ 较简单</td>
+            </tr>
+            <tr>
+              <td><strong>方式三</strong> · 我要办税入口</td>
+              <td>主动进入办税功能，适合任何时候操作</td>
+              <td>⭐⭐⭐ 稍复杂</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="tip-box" style="margin-top:12px;">
+          💡 <strong>三种方式效力完全相同</strong>，完成任意一种即视为成功签订，无需重复操作。若已签订，系统会自动识别并提示，不必担心重复签订的问题。
+        </div>
+      </div>
+    </details>
+
+    <!-- ==================== 方式一 ==================== -->
+    <details class="module-card">
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>① 签订方式一 · 登录时弹窗提示（最简单）</span>
+      </summary>
+      <div class="module-content">
+        <div class="info-box">
+          <strong>适用场景：</strong>首次登录电子税务局，或此前从未签订过《税务文书电子送达确认书》的纳税人，系统会在登录后自动弹出签订提示。
+        </div>
+        <div class="steps" style="margin-top:14px;">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <div class="step-text">
+                登录电子税务局后，若您<strong>尚未签订</strong>《税务文书电子送达确认书》，系统将自动弹出签订提示弹窗，弹窗中已<strong>默认勾选</strong>"我已认真阅读并同意《税务文书电子确认书》"，直接点击 <strong>【同意签订】</strong> 按钮即可完成签订。
+              </div>
+              <img src="images/1.2/1.2-01-popup.png"
+                   alt="登录后系统自动弹出的签订提示弹窗"
+                   class="step-img"
+                   loading="lazy"
+                   onclick="openLightbox(this); event.stopPropagation();" />
+              <div class="tip-box">
+                💡 若暂时不想签订，可点击【暂不签订】跳过，但建议尽快完成，以便及时接收税务文书通知，避免因未收到文书而产生不必要的法律风险。
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- ==================== 方式二 ==================== -->
+    <details class="module-card">
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>② 签订方式二 · 首页"我的提醒"入口</span>
+      </summary>
+      <div class="module-content">
+        <div class="info-box">
+          <strong>适用场景：</strong>登录后首页"我的提醒"区域显示有《电子送达确认书协议签订》提醒条目时，可通过此方式快速进入签订页面。
+        </div>
+        <div class="steps" style="margin-top:14px;">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <div class="step-text">
+                登录电子税务局后，在首页 <strong>"我的提醒"</strong> 区域，若显示《电子送达确认书协议签订》提醒条目，点击该条提醒。
+              </div>
+              <img src="images/1.2/1.2-02-reminder.png"
+                   alt="首页我的提醒区域中的协议签订提醒条目"
+                   class="step-img"
+                   loading="lazy"
+                   onclick="openLightbox(this); event.stopPropagation();" />
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <div class="step-text">
+                进入 <strong>"文书送达确认书"</strong> 界面后，系统将根据您的签订状态，显示以下两种结果之一：
+              </div>
+
+              <!-- 已签订 -->
+              <div class="status-signed">
+                <div class="title">❌ 情况一：已签订电子送达确认书协议</div>
+                <div class="desc">
+                  系统显示<strong>检测不通过</strong>，并提示：<br>
+                  <span class="highlight">"您已签订文书送达电子送达确认书协议，无需再次签订"</span><br>
+                  无需任何操作，直接关闭页面即可。
+                </div>
+              </div>
+              <img src="images/1.2/1.2-03-signed.png"
+                   alt="文书送达确认书界面——已签订状态"
+                   class="step-img"
+                   loading="lazy"
+                   onclick="openLightbox(this); event.stopPropagation();" />
+
+              <!-- 未签订 -->
+              <div class="status-unsigned">
+                <div class="title">📋 情况二：未签订电子送达确认书协议</div>
+                <div class="desc">
+                  系统显示《税务文书电子送达确认书》内容，并<strong>默认勾选</strong>"我已认真阅读并同意《税务文书电子送达确认书》"，点击
+                  <strong>【同意签订】</strong> 完成签订。
+                </div>
+              </div>
+              <img src="images/1.2/1.2-04-unsigned.png"
+                   alt="文书送达确认书界面——未签订状态"
+                   class="step-img"
+                   loading="lazy"
+                   onclick="openLightbox(this); event.stopPropagation();" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- ==================== 方式三 ==================== -->
+    <details class="module-card">
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>③ 签订方式三 · 我要办税入口（主动签订）</span>
+      </summary>
+      <div class="module-content">
+        <div class="info-box">
+          <strong>适用场景：</strong>首页无提醒、登录时无弹窗，但需要主动确认或完成签订时，可通过此路径手动进入签订页面，任何时候均可使用。
+        </div>
+
+        <!-- 路径导航 -->
+        <div class="path-nav">
+          <span class="path-label">操作路径：</span>
+          <span class="node">我要办税</span>
+          <span class="arrow">›</span>
+          <span class="node">综合信息报告</span>
+          <span class="arrow">›</span>
+          <span class="node">税务文书电子送达协议签订</span>
+        </div>
+
+        <div class="steps">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <div class="step-text">
+                登录电子税务局后，点击顶部导航栏中的 <strong>【我要办税】</strong>，在展开的菜单中找到 <strong>【综合信息报告】</strong>，点击其中的 <strong>【税务文书电子送达协议签订】</strong>，进入对应功能页面。
+              </div>
+              <img src="images/1.2/1.2-05-menu.png"
+                   alt="【我要办税】→【综合信息报告】→【税务文书电子送达协议签订】菜单路径"
+                   class="step-img"
+                   loading="lazy"
+                   onclick="openLightbox(this); event.stopPropagation();" />
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <div class="step-text">
+                进入页面后，若您<strong>尚未签订</strong>电子送达确认书协议，系统将自动弹出 <strong>"税务文书电子送达确认书签订"</strong> 提示框，点击 <strong>【确定】</strong>，按照页面引导完成签订，签订成功后页面如下图所示。
+              </div>
+              <img src="images/1.2/1.2-06-success.png"
+                   alt="税务文书电子送达协议签订成功页面"
+                   class="step-img"
+                   loading="lazy"
+                   onclick="openLightbox(this); event.stopPropagation();" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- ==================== 注意事项 ==================== -->
+    <details class="module-card">
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>⚠️ 注意事项</span>
+      </summary>
+      <div class="module-content">
+        <div class="tip-box" style="background:#fff8e1; border-left: 4px solid #f59e0b;">
+          ⚠️ <strong>以下事项请务必注意：</strong>
+          <ul style="margin-top:8px; padding-left:20px; line-height:2;">
+            <li>三种签订方式<strong>效力完全相同</strong>，完成任意一种即视为成功签订，无需重复操作。</li>
+            <li>签订后，税务机关将通过<strong>电子税务局</strong>向您送达税务文书，请及时登录查收，避免漏收重要通知。</li>
+            <li>若已签订，系统会自动识别并提示"无需再次签订"，<strong>不必担心重复签订</strong>的问题。</li>
+            <li>电子送达与纸质送达具有<strong>同等法律效力</strong>，收到电子文书后请及时查阅并按要求处理。</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <!-- ==================== 常见问题 ==================== -->
+    <details class="module-card">
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>❓ 常见问题 Q&A</span>
+      </summary>
+      <div class="module-content">
+        <table class="period-table">
+          <thead>
+            <tr>
+              <th>问题</th>
+              <th>原因分析</th>
+              <th>解决方案</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>登录后没有弹出签订提示</td>
+              <td>已签订过，或系统未触发弹窗</td>
+              <td>通过<strong>方式三</strong>主动进入"税务文书电子送达协议签订"页面，系统会自动识别签订状态</td>
+            </tr>
+            <tr>
+              <td>首页"我的提醒"没有协议签订提醒</td>
+              <td>已签订，或提醒条目已过期/被清除</td>
+              <td>同上，通过方式三主动查询确认</td>
+            </tr>
+            <tr>
+              <td>点击【同意签订】后提示失败</td>
+              <td>网络不稳定或系统繁忙</td>
+              <td>刷新页面后重试；若仍失败，拨打 <strong>12366</strong> 反映</td>
+            </tr>
+            <tr>
+              <td>不签订电子送达协议会有什么影响</td>
+              <td>未完成协议签订</td>
+              <td>税务机关将采用传统纸质方式送达，可能导致接收不及时，建议尽快完成签订</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <!-- 本章小结 (默认展开) -->
+    <details class="module-card" open>
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>✅ 本节小结</span>
+      </summary>
+      <div class="module-content">
+        <div class="tip-box" style="margin-top:30px; background:#f0fdf4; border-left: 4px solid #22c55e;">
+          ✅ <strong>本节小结：</strong>
+          <ul style="margin-top:8px; padding-left:20px; line-height:2;">
+            <li>共有<strong>三种签订方式</strong>，任选其一完成即可，无需重复操作</li>
+            <li>最简单的方式：<strong>登录后直接响应弹窗提示</strong>，点击【同意签订】即完成</li>
+            <li>主动签订路径：<strong>我要办税 → 综合信息报告 → 税务文书电子送达协议签订</strong></li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <div class="footer">
+      如操作过程中遇到问题，请拨打纳税服务热线 <strong>12366</strong> 获取帮助 &nbsp;|&nbsp; 本手册由税务局办税服务厅制作
+      <div style="margin-top: 12px;">
+        <a href="../index.html" class="btn-footer-back">← 返回目录</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="../assets/lightbox.js"></script>
+<script>
+  document.querySelectorAll('.step-img').forEach(img => {
+    img.addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+  });
+</script>
+</body>
+</html>
