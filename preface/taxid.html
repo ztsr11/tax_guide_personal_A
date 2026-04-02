@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
+  <title>第一步：查看税费种认定 · 操作指引</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <style>
+    /* ===== 移动端适配优化 ===== */
+    @media (max-width: 768px) {
+      body { padding: 10px !important; }
+      .page { max-width: 100% !important; border-radius: 8px; }
+      .header { padding: 24px 16px !important; }
+      .body { padding: 16px !important; }
+      .footer { padding: 20px 16px !important; }
+      .header h1 { font-size: 22px !important; }
+      .header p { font-size: 13px !important; }
+      .step-card { flex-direction: column !important; gap: 10px; }
+      .step-num { margin: 0; }
+      .section-title { font-size: 15px; margin: 20px 0 10px; }
+      .period-table { font-size: 12px; }
+      .period-table th, .period-table td { padding: 8px 6px; word-break: break-word; }
+    }
+
+    /* ===== 折叠模块样式 ===== */
+    details.module-card {
+      background: #fff;
+      border-radius: 8px;
+      margin: 12px 0;
+      box-shadow: 0 2px 8px rgba(33, 118, 199, 0.08);
+      border: 1px solid #e8f3fb;
+      overflow: hidden;
+    }
+    details.module-card[open] {
+      box-shadow: 0 4px 16px rgba(33, 118, 199, 0.15);
+    }
+    summary.module-header {
+      padding: 14px 16px;
+      font-weight: 700;
+      color: #1a4a7a;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f4f9fd;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    summary.module-header::-webkit-details-marker { display: none; }
+    summary.module-header:hover { background: #e8f3fb; }
+    summary.module-header:active { opacity: 0.9; }
+    
+    .toggle-icon {
+      font-size: 12px;
+      transition: transform 0.2s;
+      color: #2176c7;
+    }
+    details[open] .toggle-icon {
+      transform: rotate(90deg);
+    }
+    .module-content {
+      padding: 16px;
+      border-top: 1px solid #e8f3fb;
+    }
+
+    /* 税种标签 */
+    .tax-tag {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      margin: 4px 0;
+    }
+    .tax-tag.vat { background: #e3f2fd; color: #1976d2; }
+    .tax-tag.pit { background: #f3e5f5; color: #7b1fa2; }
+    .tax-tag.surtax { background: #fff3e0; color: #f57c00; }
+    .tax-tag.other { background: #e8f5e9; color: #388e3c; }
+  </style>
+</head>
+<body>
+
+<!-- ══ Lightbox 遮罩 ══ -->
+<div class="lightbox-overlay" id="lightbox" onclick="closeLightbox(event)">
+  <div class="lightbox-close" onclick="closeLightboxDirect()">✕</div>
+  <img id="lightbox-img" src="" alt="图片预览" onclick="event.stopPropagation()" />
+  <div class="lightbox-hint">点击空白处或按 ESC 关闭</div>
+</div>
+
+<div class="page">
+
+  <!-- 页头 (保持展开) -->
+  <div class="header">
+    <div class="header-top">
+      <div class="tag">电子税务局 · 操作指引</div>
+      <a href="../index.html" class="btn-back">← 返回目录</a>
+    </div>
+    <h1>📋 第一步：查看税费种认定</h1>
+    <p>登录后的首要任务：明确您需要申报哪些税种、申报期限及税率<br>
+       避免漏报、错报，做到心中有数</p>
+    <div class="badges">
+      <span class="badge">⏱️ 2 分钟完成</span>
+      <span class="badge">🎯 个体户必看</span>
+      <span class="badge">📞 问题热线：12366</span>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <!-- ✅ 模块 1：什么是税费种认定 (默认展开) -->
+    <details class="module-card" open>
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>💡 什么是税费种认定？</span>
+      </summary>
+      <div class="module-content">
+        <div class="info-box">
+          <strong>税费种认定</strong>是税务机关根据您的经营范围、登记类型等信息，核定您需要缴纳的税种、税率、申报期限等基本信息。
+        </div>
+        <div style="margin-top: 16px;">
+          <h3 class="section-title">🎯 为什么要先查看税费种认定？</h3>
+          <ul style="line-height: 2.2; padding-left: 20px;">
+            <li>✅ 明确<strong>需要申报哪些税种</strong>（增值税、个税经营所得等）</li>
+            <li>✅ 了解<strong>申报期限</strong>（按月/按季申报）</li>
+            <li>✅ 确认<strong>适用税率或征收率</strong></li>
+            <li>✅ 避免<strong>漏报、错报</strong>产生滞纳金或罚款</li>
+            <li>✅ 提前规划<strong>资金准备</strong></li>
+          </ul>
+        </div>
+        <div class="tip-box" style="margin-top: 12px; background: #fff8e1; border-left: 4px solid #f59e0b;">
+          ⚠️ <strong>重要提示：</strong>税费种认定信息如有错误（如经营范围变更但税种未调整），请及时联系主管税务机关办理变更。
+        </div>
+      </div>
+    </details>
+
+    <!-- ✅ 模块 2：如何查看税费种认定 -->
+    <details class="module-card" open>
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>🔍 如何查看税费种认定（操作步骤）</span>
+      </summary>
+      <div class="module-content">
+        <div class="steps">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <div class="step-text">登录<strong>电子税务局</strong>后，在首页找到<strong>【我要查询】-【一户式查询】-【纳税人信息查询】</strong>。</div>
+              <img src="images/taxid/taxid-01-homepage.png" alt="电子税务局首页" class="step-img" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" />
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <div class="step-text">在上方栏次中，点击<strong>【税费种认定信息】</strong>，进入后显示的信息如图所示。</div>
+              <img src="images/taxid/taxid-02-menu-entry.png" alt="税费种认定菜单入口" class="step-img" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" />
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <div class="step-text">系统展示您被核定的所有税种信息，包括：<strong>税种名称、纳税期限、申报期限、税率/征收率、有效期</strong>等。</div>
+              <img src="images/taxid/taxid-03-recognition-list.png" alt="税费种认定信息列表" class="step-img" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" />
+              <div class="tip-box" style="margin-top: 10px;">
+                💡 <strong>重点查看：</strong>
+                <ul style="margin-top: 6px; padding-left: 20px;">
+                  <li><strong>增值税</strong>：纳税期限（按月/按季）、征收率（通常3%或1%）</li>
+                  <li><strong>个人所得税（经营所得）</strong>：申报期限、征收方式（查账征收/核定征收）</li>
+                  <li><strong>附加税费</strong>：城市维护建设税、教育费附加等（通常随增值税一并申报）</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- ✅ 模块 3：个体户常见税种说明 -->
+    <details class="module-card">
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>📊 个体户常见税种说明</span>
+      </summary>
+      <div class="module-content">
+        <h3 class="section-title">1️⃣ 增值税及附加税费</h3>
+        <table class="period-table">
+          <thead>
+            <tr>
+              <th>税种</th>
+              <th>说明</th>
+              <th>常见税率/征收率</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="tax-tag vat">增值税</span></td>
+              <td>销售商品、提供服务产生的流转税</td>
+              <td>小规模纳税人：3%（2023-2027年减按1%）<br>一般纳税人：6%/9%/13%</td>
+            </tr>
+            <tr>
+              <td><span class="tax-tag surtax">城市维护建设税</span></td>
+              <td>以实际缴纳的增值税为计税依据</td>
+              <td>市区7%、县城/镇5%、其他1%</td>
+            </tr>
+            <tr>
+              <td><span class="tax-tag surtax">教育费附加</span></td>
+              <td>以实际缴纳的增值税为计税依据</td>
+              <td>3%</td>
+            </tr>
+            <tr>
+              <td><span class="tax-tag surtax">地方教育附加</span></td>
+              <td>以实际缴纳的增值税为计税依据</td>
+              <td>2%</td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <div class="info-box" style="margin-top: 16px;">
+          <strong>💡 小规模纳税人优惠政策（2023-2027年）：</strong>
+          <ul style="margin-top: 8px; padding-left: 20px; line-height: 2;">
+            <li>月销售额 ≤ 10万元（季度 ≤ 30万元）：<strong>免征增值税</strong></li>
+            <li>月销售额 > 10万元：减按<strong>1%</strong>征收率征收增值税</li>
+            <li>附加税费随增值税减免而减免</li>
+          </ul>
+        </div>
+
+        <h3 class="section-title" style="margin-top: 24px;">2️⃣ 个人所得税（经营所得）</h3>
+        <table class="period-table">
+          <thead>
+            <tr>
+              <th>征收方式</th>
+              <th>说明</th>
+              <th>税率</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>查账征收</strong></td>
+              <td>按实际利润计税，需建立账簿</td>
+              <td>5%-35%五级超额累进税率</td>
+            </tr>
+            <tr>
+              <td><strong>核定征收</strong></td>
+              <td>按收入×核定利润率计税</td>
+              <td>5%-35%五级超额累进税率</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="tip-box" style="margin-top: 12px;">
+          📅 <strong>申报期限：</strong>
+          <ul style="margin-top: 6px; padding-left: 20px; line-height: 2;">
+            <li><strong>预缴申报</strong>：按季申报（季度终了后15日内）</li>
+            <li><strong>汇算清缴</strong>：次年3月31日前办理年度汇算</li>
+          </ul>
+        </div>
+
+        <h3 class="section-title" style="margin-top: 24px;">3️⃣ 其他可能涉及的税种</h3>
+        <table class="period-table">
+          <thead>
+            <tr>
+              <th>税种</th>
+              <th>适用情况</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="tax-tag other">房产税</span></td>
+              <td>拥有经营性房产（自有房产用于经营）</td>
+            </tr>
+            <tr>
+              <td><span class="tax-tag other">城镇土地使用税</span></td>
+              <td>使用城镇土地用于经营</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <!-- ✅ 模块 4：申报期限速查表 -->
+    <details class="module-card">
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>📅 申报期限速查表</span>
+      </summary>
+      <div class="module-content">
+        <table class="period-table">
+          <thead>
+            <tr>
+              <th>税种</th>
+              <th>纳税期限</th>
+              <th>申报期限</th>
+              <th>申报平台</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>增值税及附加</strong></td>
+              <td>按月或按季<br>（认定时确定）</td>
+              <td>月度：次月15日内<br>季度：季度终了后15日内</td>
+              <td>电子税务局</td>
+            </tr>
+            <tr>
+              <td><strong>个税经营所得（预缴）</strong></td>
+              <td>按季</td>
+              <td>季度终了后15日内</td>
+              <td>自然人电子税务局<br>（扣缴端/网页端）</td>
+            </tr>
+            <tr>
+              <td><strong>个税经营所得（汇算）</strong></td>
+              <td>按年</td>
+              <td>次年3月31日前</td>
+              <td>自然人电子税务局<br>（扣缴端/网页端）</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="tip-box" style="margin-top: 12px; background: #ffebee; border-left: 4px solid #f44336;">
+          ⚠️ <strong>重要提醒：</strong>
+          <ul style="margin-top: 6px; padding-left: 20px; line-height: 2;">
+            <li>申报期限最后一日是法定休假日的，以休假日期满的次日为期限的最后一日</li>
+            <li>逾期未申报将产生<strong>滞纳金</strong>（每日万分之五）和可能的<strong>罚款</strong></li>
+            <li>即使当期无收入、无税款，也需进行<strong>零申报</strong></li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <!-- ✅ 模块 5：常见问题 -->
+    <details class="module-card">
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>❓ 常见问题 Q&A</span>
+      </summary>
+      <div class="module-content">
+        <table class="period-table">
+          <thead>
+            <tr>
+              <th>问题</th>
+              <th>解答</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>税费种认定信息与实际经营不符怎么办？</td>
+              <td>携带营业执照、身份证、经营场所证明等材料，前往主管税务机关办税服务厅办理税费种认定变更</td>
+            </tr>
+            <tr>
+              <td>我没有被核定某个税种，是否就不用申报？</td>
+              <td>是的，只需申报被核定的税种。但如果经营范围发生变化，应及时办理税费种认定变更</td>
+            </tr>
+            <tr>
+              <td>小规模纳税人月销售额未超10万，还需要申报吗？</td>
+              <td><strong>需要！</strong>即使免税，也必须进行<strong>零申报</strong>或<strong>免税申报</strong>，否则会被视为逾期未申报</td>
+            </tr>
+            <tr>
+              <td>申报期限遇到节假日会顺延吗？</td>
+              <td>会的。申报期限最后一日是法定休假日的，以休假日期满的次日为最后一日；有连续3日以上法定休假日的，按休假日天数顺延</td>
+            </tr>
+            <tr>
+              <td>我可以自己选择按季还是按月申报吗？</td>
+              <td>增值税纳税期限由税务机关根据您的情况核定，通常在税费种认定时确定。如需变更，需向主管税务机关申请</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <!-- ✅ 模块 6：下一步操作指引 -->
+    <details class="module-card" open>
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>✅ 下一步：开始申报</span>
+      </summary>
+      <div class="module-content">
+        <div class="tip-box" style="background: #f0fdf4; border-left: 4px solid #22c55e;">
+          <strong>🎯 现在您已经明确了：</strong>
+          <ul style="margin-top: 8px; padding-left: 20px; line-height: 2;">
+            <li>✅ 需要申报哪些税种</li>
+            <li>✅ 各税种的申报期限</li>
+            <li>✅ 适用的税率或征收率</li>
+          </ul>
+        </div>
+        
+        <h3 class="section-title" style="margin-top: 16px;">📍 接下来，根据您的税费种认定，选择对应的申报指引：</h3>
+        
+        <div style="margin-top: 16px;">
+          <div class="step-card" style="background: #f4f9fd; border: 1px solid #2176c7; border-radius: 8px;">
+            <div class="step-num" style="background: #2176c7; color: white;">1</div>
+            <div class="step-content">
+              <div class="step-text"><strong>增值税及附加税费申报</strong></div>
+              <a href="vat_declaration.html" style="margin-top: 8px; display: inline-block; color: #2176c7; text-decoration: none; font-weight: 600;">查看操作指引 →</a>
+            </div>
+          </div>
+          
+          <div class="step-card" style="background: #f3e5f5; border: 1px solid #7b1fa2; border-radius: 8px; margin-top: 12px;">
+            <div class="step-num" style="background: #7b1fa2; color: white;">2</div>
+            <div class="step-content">
+              <div class="step-text"><strong>个税经营所得申报（预缴/汇算）</strong></div>
+              <a href="pit_business.html" style="margin-top: 8px; display: inline-block; color: #7b1fa2; text-decoration: none; font-weight: 600;">查看操作指引 →</a>
+            </div>
+          </div>
+          
+          <div class="step-card" style="background: #fff3e0; border: 1px solid #f57c00; border-radius: 8px; margin-top: 12px;">
+            <div class="step-num" style="background: #f57c00; color: white;">3</div>
+            <div class="step-content">
+              <div class="step-text"><strong>发票开具指引</strong></div>
+              <a href="invoice_issue.html" style="margin-top: 8px; display: inline-block; color: #f57c00; text-decoration: none; font-weight: 600;">查看操作指引 →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- ✅ 模块 7：联系方式 -->
+    <details class="module-card">
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>📞 遇到问题，如何获取帮助</span>
+      </summary>
+      <div class="module-content">
+        <table class="period-table">
+          <thead>
+            <tr>
+              <th>渠道</th>
+              <th>说明</th>
+              <th>适用情况</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>📞 拨打 <strong>12366</strong></td>
+              <td>国家税务总局纳税服务热线<br>工作日 8:30–17:00</td>
+              <td>税费种认定疑问、政策解读、操作咨询</td>
+            </tr>
+            <tr>
+              <td>🏢 前往办税服务厅</td>
+              <td>携带营业执照、身份证等材料</td>
+              <td>税费种认定信息错误需变更、新增税种认定</td>
+            </tr>
+            <tr>
+              <td>💬 电子税务局<br>在线客服</td>
+              <td>网页端或APP"征纳互动"入口</td>
+              <td>系统操作问题、菜单找不到等</td>
+            </tr>
+            <tr>
+              <td>👨‍💼 税务专管员</td>
+              <td>您的主管税务机关分配的专管员</td>
+              <td>个性化税务问题、政策适用疑问</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <div class="footer">
+      如操作过程中遇到问题，请拨打纳税服务热线 <strong>12366</strong> 获取帮助 &nbsp;|&nbsp; 本手册由税务局办税服务厅制作
+      <div style="margin-top: 12px;">
+        <a href="../index.html" class="btn-footer-back">← 返回目录</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="../assets/lightbox.js"></script>
+<script>
+  document.querySelectorAll('.step-img').forEach(img => {
+    img.addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+  });
+</script>
+</body>
+</html>
