@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>3.0 个体工商户税费申报必看 · 操作指引</title>
+
+  <!-- 公共样式 -->
+  <link rel="stylesheet" href="../assets/style.css" />
+  <link rel="stylesheet" href="../assets/mobile-extra.css" />
+
+  <!-- 本页专属样式：如需调整本页面显示效果，主要修改这里 -->
+  <style>
+    /* ========== 1. 折叠模块 ========== */
+    summary.module-header::-webkit-details-marker {
+      display: none;
+    }
+
+    summary.module-header::marker {
+      content: "";
+    }
+
+    details.module-card {
+      background: #fff;
+      border: 1px solid #e8f3fb;
+      border-radius: 8px;
+      margin: 12px 0;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(33, 118, 199, 0.08);
+    }
+
+    details.module-card[open] {
+      box-shadow: 0 4px 16px rgba(33, 118, 199, 0.15);
+    }
+
+    summary.module-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 16px;
+      background: #f4f9fd;
+      color: #1a4a7a;
+      font-weight: 700;
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    summary.module-header:hover {
+      background: #e8f3fb;
+    }
+
+    .toggle-icon {
+      color: #2176c7;
+      font-size: 12px;
+      transition: transform 0.2s;
+    }
+
+    details[open] .toggle-icon {
+      transform: rotate(90deg);
+    }
+
+    .module-content {
+      padding: 16px;
+      border-top: 1px solid #e8f3fb;
+    }
+
+    /* ========== 2. 列表、提示和图片占位 ========== */
+    .checklist,
+    .note-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .checkitem {
+      background: #f4f9fd;
+      border-left: 4px solid #4a90d9;
+      border-radius: 0 8px 8px 0;
+      padding: 10px 14px;
+      color: #2c3e50;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .note-item {
+      background: #e8f3fb;
+      border: 1px solid #a8cfe8;
+      border-left: 4px solid #2176c7;
+      border-radius: 0 8px 8px 0;
+      padding: 10px 14px;
+      color: #1a4a7a;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .image-placeholder {
+      margin-top: 12px;
+      padding: 12px 14px;
+      background: #e8f3fb;
+      border: 1.5px dashed #7ab8da;
+      border-radius: 6px;
+      color: #3d6080;
+      font-size: 13px;
+      font-style: italic;
+      line-height: 1.8;
+    }
+
+    .mini-title {
+      margin: 16px 0 8px;
+      padding-left: 10px;
+      border-left: 4px solid #4a90d9;
+      color: #1a4a7a;
+      font-weight: 700;
+    }
+
+    /* ========== 3. 表格横向滚动 ========== */
+    .scroll-table {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .scroll-table table {
+      min-width: 620px;
+    }
+
+    /* ========== 4. 手机端优化 ========== */
+    @media (max-width: 768px) {
+      body {
+        padding: 10px !important;
+      }
+
+      .page {
+        max-width: 100% !important;
+        border-radius: 8px;
+      }
+
+      .header {
+        padding: 24px 16px !important;
+      }
+
+      .body {
+        padding: 16px !important;
+      }
+
+      .footer {
+        padding: 20px 16px !important;
+      }
+
+      .header h1 {
+        font-size: 22px !important;
+      }
+
+      .header p {
+        font-size: 13px !important;
+      }
+
+      .module-content {
+        padding: 14px 12px;
+      }
+
+      .checkitem,
+      .note-item {
+        font-size: 13px;
+      }
+
+      .period-table,
+      .tier-table {
+        font-size: 12px;
+      }
+
+      .period-table th,
+      .period-table td,
+      .tier-table th,
+      .tier-table td {
+        padding: 8px 6px;
+        word-break: break-word;
+      }
+
+      .scroll-table table {
+        min-width: 680px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 图片点击放大遮罩 -->
+  <div class="lightbox-overlay" id="lightbox" onclick="closeLightbox(event)">
+    <div class="lightbox-close" onclick="closeLightboxDirect()">✕</div>
+    <img id="lightbox-img" src="" alt="图片预览" onclick="event.stopPropagation()" />
+    <div class="lightbox-hint">点击空白处或按 ESC 关闭</div>
+  </div>
+
+  <div class="page">
+    <!-- 页头 -->
+    <div class="header">
+      <div class="header-top">
+        <div class="tag">个体户 · 税费申报</div>
+        <a href="../index.html" class="btn-back">← 返回目录</a>
+      </div>
+
+      <h1>📌 个体工商户税费申报必看</h1>
+      <p>报什么税、什么时候报、自动申报还是自行申报、税款怎么简单判断</p>
+
+      <div class="badges">
+        <span class="badge">🖥️ 电子税务局</span>
+        <span class="badge">☎️ 12366</span>
+      </div>
+    </div>
+
+    <!-- 正文 -->
+    <div class="body">
+      <!-- 01 适用对象 -->
+      <details class="module-card" open>
+        <summary class="module-header">
+          <span class="toggle-icon">▶</span>
+          <span>✅ 适用对象</span>
+        </summary>
+        <div class="module-content">
+          <div class="info-box">
+            适用于一般个体工商户。具体执行以主管税务机关、电子税务局展示及现行政策规定为准。
+          </div>
+        </div>
+      </details>
+
+      <!-- 02 先看这3句话 -->
+      <details class="module-card" open>
+        <summary class="module-header">
+          <span class="toggle-icon">▶</span>
+          <span>💡 先看这3句话</span>
+        </summary>
+        <div class="module-content">
+          <div class="checklist">
+            <div class="checkitem">① 每季度都要关注申报：1月、4月、7月、10月的1日至15日，主要报增值税、附加税费、个人所得税经营所得预缴。</div>
+            <div class="checkitem">② 每年1月1日至3月31日，还要办理个人所得税经营所得年度申报。</div>
+            <div class="checkitem">③ 开了专票、销售额超过免税或核定标准、电子税务局提示需申报时，不要等系统自动报，需自行核对申报。</div>
+          </div>
+        </div>
+      </details>
+
+      <!-- 03 我到底要报哪些税 -->
+      <details class="module-card" open>
+        <summary class="module-header">
+          <span class="toggle-icon">▶</span>
+          <span>📌 我到底要报哪些税？</span>
+        </summary>
+        <div class="module-content">
+          <div class="scroll-table">
+            <table class="period-table">
+              <thead>
+                <tr>
+                  <th>税费名称</th>
+                  <th>通俗理解</th>
+                  <th>申报频次</th>
+                  <th>重点提醒</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>增值税及附加</td>
+                  <td>卖货、提供服务取得收入涉及</td>
+                  <td>通常按季度</td>
+                  <td>小规模纳税人季度销售额不超过30万元的，普通发票部分按规定免征；开具专票部分需正常缴税。</td>
+                </tr>
+                <tr>
+                  <td>个人所得税（经营所得）</td>
+                  <td>个体户老板取得经营利润涉及</td>
+                  <td>季度预缴；年度汇算 / 年报</td>
+                  <td>征收方式可能是定期定额、定率或查账征收；年应纳税所得额不超过200万元部分，按规定减半征收。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </details>
+
+      <!-- 04 申报时间表 -->
+      <details class="module-card" open>
+        <summary class="module-header">
+          <span class="toggle-icon">▶</span>
+          <span>📅 什么时候报？申报时间表</span>
+        </summary>
+        <div class="module-content">
+          <div class="info-box">
+            季度申报：每年1月、4月、7月、10月的1日至15日，申报上一季度的增值税、附加税费、个人所得税经营所得预缴。<br />
+            个人所得税经营所得年度申报：每年1月1日至3月31日，申报上一年度经营所得。<br />
+            如遇法定节假日，申报期限以税务机关公告调整为准。
+          </div>
+        </div>
+      </details>
+
+      <!-- 05 自动申报还是自行申报 -->
+      <details class="module-card" open>
+        <summary class="module-header">
+          <span class="toggle-icon">▶</span>
+          <span>🧭 先判断：我是自动申报，还是要自己申报？</span>
+        </summary>
+        <div class="module-content">
+          <div class="scroll-table">
+            <table class="period-table">
+              <thead>
+                <tr>
+                  <th>征收方式</th>
+                  <th>一般怎么报</th>
+                  <th>什么情况要特别注意</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>定期定额户</td>
+                  <td>季度销售额不超核定数额且未开专票的，系统可自动申报。</td>
+                  <td>如开具专票，或季度销售额超过9万元等需要自行申报情形，应作废系统自动申报表后重新据实申报。</td>
+                </tr>
+                <tr>
+                  <td>定率征收户</td>
+                  <td>纳税人自行申报。</td>
+                  <td>收入至少应按本季开票金额等实际经营情况据实填报。</td>
+                </tr>
+                <tr>
+                  <td>查账征收户</td>
+                  <td>纳税人自行申报。</td>
+                  <td>成本费用应取得合法有效凭证；暂不能取得合法票据的，成本栏请谨慎、据实填报。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </details>
+
+      <!-- 06 增值税和附加税费 -->
+      <details class="module-card" open>
+        <summary class="module-header">
+          <span class="toggle-icon">▶</span>
+          <span>🧾 增值税和附加税费怎么判断？</span>
+        </summary>
+        <div class="module-content">
+          <div class="mini-title">小规模纳税人简易判断</div>
+          <div class="checklist">
+            <div class="checkitem">季度销售额≤30万元：普通发票部分增值税、相应附加税费按规定免征。</div>
+            <div class="checkitem">开具增值税专用发票：专票部分需按规定缴纳增值税及相应附加税费。</div>
+            <div class="checkitem">附加税费包括城建税、教育费附加、地方教育附加；小规模纳税人按规定减半征收。</div>
+          </div>
+        </div>
+      </details>
+
+      <!-- 07 个人所得税经营所得 -->
+      <details class="module-card" open>
+        <summary class="module-header">
+          <span class="toggle-icon">▶</span>
+          <span>🧮 个人所得税（经营所得）怎么算？</span>
+        </summary>
+        <div class="module-content">
+          <div class="info-box">
+            个人所得税经营所得常见有三种征收方式。先确认自己的征收方式，再按对应方法计算。
+          </div>
+
+          <div class="scroll-table">
+            <table class="period-table">
+              <thead>
+                <tr>
+                  <th>征收方式</th>
+                  <th>计算方法</th>
+                  <th>适合这样理解</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>定期定额</td>
+                  <td>
+                    按主管税务机关核定情况及附征率计算。<br />
+                    广西政策依据：国家税务总局广西壮族自治区税务局公告2018年第23号。
+                  </td>
+                  <td>税务机关先核定一个经营额档次，再按对应附征率计算。</td>
+                </tr>
+                <tr>
+                  <td>定率征收</td>
+                  <td>个税＝收入×行业应税所得率×适用税率－速算扣除数。</td>
+                  <td>不用逐笔算成本，先按行业比例算出应纳税所得额。</td>
+                </tr>
+                <tr>
+                  <td>查账征收</td>
+                  <td>个税＝（收入－成本费用）×适用税率－速算扣除数。</td>
+                  <td>收入、成本费用都要有账、有凭证，据实申报。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </details>
+
+      <!-- 08 定期定额附征率表 -->
+      <details class="module-card">
+        <summary class="module-header">
+          <span class="toggle-icon">▶</span>
+          <span>📊 定期定额附征率表（广西）</span>
+        </summary>
+        <div class="module-content">
+          <div class="scroll-table">
+            <table class="tier-table">
+              <thead>
+                <tr>
+                  <th>月经营额（不含增值税）</th>
+                  <th>季经营额（不含增值税）</th>
+                  <th>附征率</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>30000元（含）以下</td>
+                  <td>90000元（含）以下</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>30000元（不含）至50000元（含）</td>
+                  <td>90000元（不含）至150000元（含）</td>
+                  <td>0.5%</td>
+                </tr>
+                <tr>
+                  <td>50000元（不含）至100000元（含）</td>
+                  <td>150000元（不含）至300000元（含）</td>
+                  <td>0.8%</td>
+                </tr>
+                <tr>
+                  <td>100000元（不含）至200000元（含）</td>
+                  <td>300000元（不含）至600000元（含）</td>
+                  <td>1.1%</td>
+                </tr>
+                <tr>
+                  <td>200000元（不含）以上</td>
+                  <td>600000元（不含）以上</td>
+                  <td>1.5%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </details>
+
+      <!-- 09 经营所得税率表 -->
+      <details class="module-card">
+        <summary class="module-header">
+          <span class="toggle-icon">▶</span>
+          <span>📈 经营所得税率表</span>
+        </summary>
+        <div class="module-content">
+          <div class="scroll-table">
+            <table class="tier-table">
+              <thead>
+                <tr>
+                  <th>级数</th>
+                  <th>全年应纳税所得额</th>
+                  <th>税率</th>
+                  <th>速算扣除数</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>不超过30000元</td>
+                  <td>5%</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>超过30000元至90000元</td>
+                  <td>10%</td>
+                  <td>1500</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>超过90000元至300000元</td>
+                  <td>20%</td>
+                  <td>10500</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>超过300000元至500000元</td>
+                  <td>30%</td>
+                  <td>40500</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>超过500000元</td>
+                  <td>35%</td>
+                  <td>65500</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </details>
+
+      <!-- 10 行业应税所得率表 -->
+      <details class="module-card">
+        <summary class="module-header">
+          <span class="toggle-icon">▶</span>
+          <span>🏷️ 行业应税所得率表（定率征收适用）</span>
+        </summary>
+        <div class="module-content">
+          <div class="scroll-table">
+            <table class="tier-table">
+              <thead>
+                <tr>
+                  <th>行业</th>
+                  <th>应税所得率</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>工业、交通运输业、商业</td>
+                  <td>5%</td>
+                </tr>
+                <tr>
+                  <td>建筑业、饮食服务业</td>
+                  <td>7%</td>
+                </tr>
+                <tr>
+                  <td>房地产开发业</td>
+                  <td>8%</td>
+                </tr>
+                <tr>
+                  <td>娱乐业</td>
+                  <td>20%</td>
+                </tr>
+                <tr>
+                  <td>其他行业</td>
+                  <td>10%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </details>
+
+      <!-- 11 温馨提醒 -->
+      <details class="module-card" open>
+        <summary class="module-header">
+          <span class="toggle-icon">▶</span>
+          <span>⚠️ 温馨提醒：请重点核对</span>
+        </summary>
+        <div class="module-content">
+          <div class="note-list">
+            <div class="note-item">系统自动申报不等于一定不用管，建议每个申报期登录电子税务局查看是否申报成功、税款是否正确。</div>
+            <div class="note-item">开具专票通常会影响增值税及附加税费，请单独核对。</div>
+            <div class="note-item">收入、成本、行业类别、征收方式不同，税额会不同；本指引案例仅用于帮助理解。</div>
+            <div class="note-item">政策如有调整，以最新法律法规、税务机关公告和电子税务局提示为准。</div>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <!-- 页脚 -->
+    <div class="footer">
+      本页面供个体工商户申报学习参考。具体办理以电子税务局页面展示、主管税务机关要求及现行政策规定为准。
+    </div>
+  </div>
+
+  <script src="../assets/lightbox.js"></script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>个人所得税经营所得申报 · 操作指引</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <style>
+    details.module-card{background:#fff;border:1px solid #e8f3fb;border-radius:8px;margin:12px 0;overflow:hidden;box-shadow:0 2px 8px rgba(33,118,199,.08)}
+    details.module-card[open]{box-shadow:0 4px 16px rgba(33,118,199,.15)}
+    summary.module-header{display:flex;align-items:center;gap:10px;padding:14px 16px;background:#f4f9fd;color:#1a4a7a;font-weight:700;cursor:pointer;list-style:none;user-select:none}
+    summary.module-header::-webkit-details-marker{display:none}.toggle-icon{color:#2176c7;font-size:12px;transition:transform .2s}details[open] .toggle-icon{transform:rotate(90deg)}.module-content{padding:16px;border-top:1px solid #e8f3fb}
+    .channel-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}.channel-card{padding:14px;background:#f8fbff;border:1px solid #dbeafe;border-radius:10px}.channel-card h3{margin:0 0 8px;color:#174a7c;font-size:16px}.channel-card p{margin:0;color:#42627d;line-height:1.8;font-size:14px}
+    .notice-box{margin:12px 0;padding:12px 14px;border-left:4px solid #2176c7;background:#f3f9ff;color:#244866;line-height:1.9;border-radius:6px}.warn-box{margin:12px 0;padding:12px 14px;border-left:4px solid #f59e0b;background:#fffbeb;color:#6b4e16;line-height:1.9;border-radius:6px}.step-list{margin:8px 0 14px;padding-left:20px;color:#244866;line-height:2}.step-screenshot img{cursor:zoom-in}
+    .prepare-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}.prepare-item{background:#f8fbff;border:1px solid #dbeafe;border-radius:10px;padding:14px;color:#244866;line-height:1.8}.prepare-item strong{color:#174a7c}.prepare-icon{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;margin-right:6px;border-radius:50%;background:#e8f3fb;color:#2176c7;font-weight:700}
+    @media(max-width:768px){body{padding:10px!important}.page{max-width:100%!important;border-radius:8px}.header{padding:24px 16px!important}.body{padding:16px!important}.footer{padding:20px 16px!important}.header h1{font-size:22px!important}.header p{font-size:13px!important}.channel-grid,.prepare-grid{grid-template-columns:1fr}.step-card{flex-direction:column!important;gap:10px}.step-num{margin:0}.path-box{font-size:12px;padding:10px 12px}.path-box .node{font-size:12px}}
+  </style>
+</head>
+<body>
+
+  <!--
+    图片目录：ch3-tax-filing/images/3.2/
+    请将 Word 截图按以下名称放入该目录：
+    3.2-01-download-client.png               下载扣缴客户端
+    3.2-02-client-login.png                  扣缴端登录
+    3.2-03-person-info-collection.png        人员信息采集
+    3.2-04-business-income-module.png        经营所得模块 / 预缴纳税申报入口
+    3.2-05-fill-prepayment-data.png          填写预缴申报数据
+    3.2-06-submit-and-feedback.png           提交申报并获取反馈
+    3.2-07-tax-relief-half-policy.png        减半征收优惠填写
+    3.2-08-client-tax-payment.png            扣缴端税款缴纳
+    3.2-09-web-login.png                     Web端登录
+    3.2-10-web-business-income-a-form.png    经营所得（A表）入口
+    3.2-11-web-invested-unit-info.png        被投资单位信息
+    3.2-12-web-tax-calculation-info.png      计税信息
+    3.2-13-web-tax-relief-info.png           减免税额信息
+    3.2-14-web-confirm-submit.png            确认并提交申报
+    3.2-15-web-pay-tax-now.png               Web端立即缴税
+  -->
+
+  <div class="lightbox-overlay" id="lightbox" onclick="closeLightbox(event)">
+    <div class="lightbox-close" onclick="closeLightboxDirect()">✕</div>
+    <img id="lightbox-img" src="" alt="图片预览" onclick="event.stopPropagation()" />
+    <div class="lightbox-hint">点击空白处或按 ESC 关闭</div>
+  </div>
+
+  <div class="page">
+    <div class="header">
+      <div class="header-top"><div class="tag">电子税务局 · 操作指引</div><a href="../index.html" class="btn-back">← 返回目录</a></div>
+      <h1>个人所得税经营所得申报</h1>
+      <p>本指引适用于个体工商户、个人独资企业、合伙企业等经营所得纳税人办理经营所得预缴申报<br />可通过<strong>自然人电子税务局（扣缴端）</strong>或<strong>自然人电子税务局 Web 端</strong>办理</p>
+      <div class="badges"><span class="badge">👤 个体工商户</span><span class="badge">💼 经营所得</span><span class="badge">🖥️ 扣缴端 / Web端</span><span class="badge">📅 预缴申报</span></div>
+    </div>
+
+    <div class="body">
+      <!-- 一、适用对象 -->
+      <details class="module-card" open><summary class="module-header"><span class="toggle-icon">▶</span><span>一、适用对象</span></summary><div class="module-content"><div class="info-box">✅ 已办理税务登记并取得经营所得的个体工商户经营者、个人独资企业投资人、合伙企业个人合伙人等。<br />✅ 需要按期办理<strong>个人所得税经营所得预缴申报</strong>的纳税人。<br />✅ 如本期有应缴税款，申报成功后还需及时完成税款缴纳。</div></div></details>
+
+      <!-- 二、办理方式 -->
+      <details class="module-card" open><summary class="module-header"><span class="toggle-icon">▶</span><span>二、办理方式</span></summary><div class="module-content"><div class="channel-grid"><div class="channel-card"><h3>方式一：自然人电子税务局（扣缴端）</h3><p>适合已安装扣缴客户端的纳税人或办税人员使用。先下载客户端，再登录、采集人员信息、切换至经营所得模块申报。</p></div><div class="channel-card"><h3>方式二：自然人电子税务局（Web 端）</h3><p>适合直接通过网页办理。登录自然人电子税务局后，进入经营所得 A 表，按页面提示填写并提交。</p></div></div><div class="notice-box">自然人电子税务局网址：<strong>https://etax.chinatax.gov.cn/</strong></div></div></details>
+
+      <!-- 三、申报前准备 -->
+      <details class="module-card" open>
+        <summary class="module-header"><span class="toggle-icon">▶</span><span>三、申报前准备</span></summary>
+        <div class="module-content">
+          <div class="notice-box"><strong>开始操作前，请先准备好以下内容。</strong>准备充分后再申报，可减少退回修改、无法提交或缴款失败等情况。</div>
+          <div class="prepare-grid">
+            <div class="prepare-item"><span class="prepare-icon">1</span><strong>登录方式：</strong>确认自然人电子税务局账号、密码可正常使用，或已安装并可使用个人所得税 APP 扫码登录。</div>
+            <div class="prepare-item"><span class="prepare-icon">2</span><strong>身份信息：</strong>确认经营者、投资人或合伙人的身份证件信息准确无误。</div>
+            <div class="prepare-item"><span class="prepare-icon">3</span><strong>单位信息：</strong>准备好个体工商户、个人独资企业或合伙企业的统一社会信用代码 / 纳税人识别号。</div>
+            <div class="prepare-item"><span class="prepare-icon">4</span><strong>申报期信息：</strong>确认本次申报对应的申报年度和税款所属期。</div>
+            <div class="prepare-item"><span class="prepare-icon">5</span><strong>经营数据：</strong>提前核对本期收入总额、成本费用、利润等经营所得申报数据。</div>
+            <div class="prepare-item"><span class="prepare-icon">6</span><strong>缴款准备：</strong>如申报后产生应缴税款，请确认银行卡、三方协议或其他缴款方式可正常使用。</div>
+          </div>
+          <div class="warn-box">提示：如果通过扣缴端办理，首次申报前通常需要先完成<strong>人员信息采集</strong>并报送成功；如已采集，可直接进入经营所得申报。</div>
+        </div>
+      </details>
+
+      <!-- 四、自然人电子税务局（扣缴端）办理流程 -->
+      <details class="module-card" open><summary class="module-header"><span class="toggle-icon">▶</span><span>四、自然人电子税务局（扣缴端）办理流程</span></summary><div class="module-content"><div class="steps">
+        <div class="step-card"><div class="step-num">1</div><div class="step-content"><div class="step-text">进入自然人电子税务局网站，点击首页右上角<strong>【下载服务】</strong>，选择<strong>【软件工具】</strong>，下载自然人电子税务局扣缴客户端。</div><div class="step-screenshot"><img src="images/3.2/3.2-01-download-client.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" alt="下载扣缴客户端" /></div></div></div>
+        <div class="step-card"><div class="step-num">2</div><div class="step-content"><div class="step-text">打开自然人电子税务局扣缴客户端，输入经营者身份证号码、密码等认证信息，或使用<strong>个人所得税 APP 扫码登录</strong>。</div><div class="step-screenshot"><img src="images/3.2/3.2-02-client-login.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" alt="扣缴端登录" /></div></div></div>
+        <div class="step-card"><div class="step-num">3</div><div class="step-content"><div class="step-text">如尚未采集投资人信息，点击<strong>【代扣代缴】</strong>模块中的<strong>【人员信息采集】</strong>，添加投资人信息并点击<strong>【报送】</strong>。</div><div class="step-screenshot"><img src="images/3.2/3.2-03-person-info-collection.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" alt="人员信息采集" /></div><div class="warn-box">如您已经完成投资人信息采集，可直接跳至下一步办理经营所得申报。</div></div></div>
+        <div class="step-card"><div class="step-num">4</div><div class="step-content"><div class="step-text">切换至<strong>【经营所得】</strong>模块，点击<strong>【预缴纳税申报】</strong>。</div><div class="step-screenshot"><img src="images/3.2/3.2-04-business-income-module.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" alt="经营所得模块" /></div></div></div>
+        <div class="step-card"><div class="step-num">5</div><div class="step-content"><div class="step-text">核对税款所属期，点击<strong>【修改】</strong>。双击选择对应投资人，进入预缴申报编辑界面，填写收入总额、成本费用等相关信息，填写完成后点击<strong>【确定】</strong>。</div><div class="step-screenshot"><img src="images/3.2/3.2-05-fill-prepayment-data.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" alt="填写预缴申报数据" /></div></div></div>
+        <div class="step-card"><div class="step-num">6</div><div class="step-content"><div class="step-text">填写无误后，勾选投资人，点击<strong>【提交申报】</strong>，再点击<strong>【获取反馈】</strong>。系统显示<strong>“申报成功”</strong>即完成申报。</div><div class="step-screenshot"><img src="images/3.2/3.2-06-submit-and-feedback.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" alt="提交申报并获取反馈" /></div><div class="warn-box">若提交失败提示“纳税人符合个体工商户减半征收个人所得税优惠政策，但未享受该减免，请修改”，请点击<strong>【姓名】</strong>进入预缴申报编辑界面，在第十三栏填写减免税额，减免事项选择<strong>“个体工商户减半征收经营所得个人所得税”</strong>，点击<strong>【确定】</strong>后重新提交。</div><div class="step-screenshot"><img src="images/3.2/3.2-07-tax-relief-half-policy.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" alt="减半征收优惠填写" /></div></div></div>
+        <div class="step-card"><div class="step-num">7</div><div class="step-content"><div class="step-text">申报成功后如需缴纳税款，点击<strong>【税款缴纳】</strong>，选择缴款方式完成缴纳。</div><div class="step-screenshot"><img src="images/3.2/3.2-08-client-tax-payment.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" alt="扣缴端税款缴纳" /></div></div></div>
+      </div></div></details>
+
+      <!-- 五、自然人电子税务局（Web端）办理流程 -->
+      <details class="module-card" open><summary class="module-header"><span class="toggle-icon">▶</span><span>五、自然人电子税务局（Web端）办理流程</span></summary><div class="module-content"><div class="steps">
+        <div class="step-card"><div class="step-num">1</div><div class="step-content"><div class="step-text">进入自然人电子税务局网站，输入身份证号或手机号、密码登录，也可使用<strong>个人所得税 APP 扫码登录</strong>。</div><div class="step-screenshot"><img src="images/3.2/3.2-09-web-login.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" alt="Web端登录" /></div></div></div>
+        <div class="step-card"><div class="step-num">2</div><div class="step-content"><div class="step-text">登录后点击<strong>【我要办税】</strong>，选择<strong>【经营所得（A表）】</strong>，选择对应<strong>申报年度</strong>并点击<strong>【确定】</strong>。</div><div class="step-screenshot"><img src="images/3.2/3.2-10-web-business-income-a-form.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" alt="经营所得A表入口" /></div></div></div>
+        <div class="step-card"><div class="step-num">3</div><div class="step-content"><div class="step-text">录入被投资单位信息。点击<strong>【被投资单位统一社会信用代码】</strong>，输入纳税识别号后点击<strong>【确认添加】</strong>；在<strong>【税款所属期止】</strong>选择上一季度的最后一个月，如3、6、9、12月，点击<strong>【下一步】</strong>。</div><div class="step-screenshot"><img src="images/3.2/3.2-11-web-invested-unit-info.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" alt="被投资单位信息" /></div></div></div>
+        <div class="step-card"><div class="step-num">4</div><div class="step-content"><div class="step-text">录入计税信息，填写<strong>【收入总额】</strong>、<strong>【成本费用】</strong>等信息，选择<strong>【是否均在综合所得中扣除】</strong>，点击<strong>【下一步】</strong>。</div><div class="step-screenshot"><img src="images/3.2/3.2-12-web-tax-calculation-info.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" alt="计税信息" /></div></div></div>
+        <div class="step-card"><div class="step-num">5</div><div class="step-content"><div class="step-text">录入减免税额，按实际情况选择减免项目，确认无误后点击<strong>【下一步】</strong>。</div><div class="step-screenshot"><img src="images/3.2/3.2-13-web-tax-relief-info.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" alt="减免税额信息" /></div></div></div>
+        <div class="step-card"><div class="step-num">6</div><div class="step-content"><div class="step-text">确认申报信息无误后，点击<strong>【提交】</strong>，完成经营所得申报。</div><div class="step-screenshot"><img src="images/3.2/3.2-14-web-confirm-submit.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" alt="确认并提交申报" /></div></div></div>
+        <div class="step-card"><div class="step-num">7</div><div class="step-content"><div class="step-text">申报成功后如需缴纳税款，点击<strong>【立即缴税】</strong>，选择缴款方式完成缴纳。</div><div class="step-screenshot"><img src="images/3.2/3.2-15-web-pay-tax-now.png" loading="lazy" onclick="openLightbox(this); event.stopPropagation();" alt="立即缴税" /></div></div></div>
+      </div></div></details>
+
+      <!-- 六、常见问题（FAQ） -->
+      <details class="module-card"><summary class="module-header"><span class="toggle-icon">▶</span><span>六、常见问题（FAQ）</span></summary><div class="module-content"><div class="faq-list"><div class="faq-item"><div class="faq-q"><span class="q-tag">Q1</span>已经采集过人员信息，还要重新采集吗？</div><div class="faq-a"><span class="a-tag">A</span><span>不用。若扣缴端中已经完成投资人信息采集并报送成功，可直接进入<strong>【经营所得】</strong>模块办理预缴纳税申报。</span></div></div><div class="faq-item"><div class="faq-q"><span class="q-tag">Q2</span>提示符合减半征收政策但未享受，怎么办？</div><div class="faq-a"><span class="a-tag">A</span><span>点击投资人姓名进入编辑界面，在第十三栏填写减免税额，减免事项选择<strong>“个体工商户减半征收经营所得个人所得税”</strong>，保存后重新提交。</span></div></div></div></div></details>
+
+      <!-- 七、温馨提醒 -->
+      <details class="module-card" open>
+        <summary class="module-header"><span class="toggle-icon">▶</span><span>七、温馨提醒</span></summary>
+        <div class="module-content">
+          <div class="tip-box" style="background:#f0fdf4;border-left:4px solid #22c55e;padding:16px 20px;">✅ <strong>申报完成后，请注意：</strong><ul style="margin-top:10px;padding-left:20px;line-height:2.2;color:#1a4a72;"><li>提交申报后，请查看系统反馈结果，确认是否显示<strong>申报成功</strong>。</li><li>如申报后产生应缴税款，请及时完成缴纳，避免逾期。</li><li>缴款完成后，建议截图保存申报成功页面或缴款凭证，便于后续查询。</li><li>如发现申报数据填写有误，请及时通过系统更正，或咨询主管税务机关。</li><li>操作过程中如遇系统异常、无法登录、无法缴款等问题，可拨打 <strong>12366</strong> 咨询。</li></ul></div>
+        </div>
+      </details>
+    </div>
+
+    <div class="footer">如操作过程中遇到问题，请拨打纳税服务热线 <strong>12366</strong> 获取帮助 &nbsp;|&nbsp; 本手册由税务局办税服务厅制作<div style="margin-top:12px;"><a href="../index.html" class="btn-footer-back">← 返回目录</a></div></div>
+  </div>
+  <script src="../assets/lightbox.js"></script>
+</body>
+</html>
