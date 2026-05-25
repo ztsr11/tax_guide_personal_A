@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>2.1 蓝字发票开具 · 操作指引</title>
+
+  <link rel="stylesheet" href="../assets/style.css" />
+
+  <style>
+    /* ========== 本页专属：折叠模块 ========== */
+    summary.module-header::-webkit-details-marker { display: none; }
+    summary.module-header::marker { content: ""; }
+
+    details.module-card {
+      background: #fff;
+      border-radius: 8px;
+      margin: 12px 0;
+      box-shadow: 0 2px 8px rgba(33, 118, 199, 0.08);
+      border: 1px solid #e8f3fb;
+      overflow: hidden;
+    }
+
+    details.module-card[open] {
+      box-shadow: 0 4px 16px rgba(33, 118, 199, 0.15);
+    }
+
+    summary.module-header {
+      padding: 14px 16px;
+      font-weight: 700;
+      color: #1a4a7a;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f4f9fd;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    summary.module-header:hover { background: #e8f3fb; }
+
+    .toggle-icon {
+      font-size: 12px;
+      transition: transform 0.2s;
+      color: #2176c7;
+    }
+
+    details[open] .toggle-icon { transform: rotate(90deg); }
+
+    .module-content {
+      padding: 16px;
+      border-top: 1px solid #e8f3fb;
+    }
+
+    /* ========== 本页专属：重点卡片 ========== */
+    .quick-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .quick-item {
+      background: #f4f9fd;
+      border-left: 4px solid #4a90d9;
+      border-radius: 0 8px 8px 0;
+      padding: 10px 14px;
+      line-height: 1.8;
+      font-size: 14px;
+      color: #2c3e50;
+    }
+
+    .quota-box {
+      background: #edf5fb;
+      border: 1px solid #a8cfe8;
+      border-left: 4px solid #2176c7;
+      border-radius: 0 8px 8px 0;
+      padding: 12px 16px;
+      margin: 10px 0;
+      line-height: 1.8;
+      font-size: 14px;
+      color: #1a4a7a;
+    }
+
+    .formula-card {
+      background: #fff;
+      border: 1px solid #a8cfe8;
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin-top: 8px;
+      font-weight: 700;
+      color: #1a4a7a;
+    }
+
+    .image-placeholder {
+      background: #e8f3fb;
+      border: 1.5px dashed #7ab8da;
+      border-radius: 6px;
+      padding: 12px 14px;
+      font-size: 13px;
+      color: #3d6080;
+      font-style: italic;
+      margin-top: 12px;
+      line-height: 1.8;
+    }
+
+    .sub-title {
+      font-weight: 700;
+      color: #1a4a7a;
+      margin: 14px 0 8px;
+      padding-left: 10px;
+      border-left: 4px solid #4a90d9;
+    }
+
+    /* ========== 图片提示 ========== */
+    .img-caption {
+      font-size: 12px;
+      color: #7aaac8;
+      margin-top: 4px;
+      line-height: 1.6;
+    }
+
+    /* ========== 手机端优化 ========== */
+    @media (max-width: 768px) {
+      body { padding: 10px !important; }
+      .page { max-width: 100% !important; border-radius: 8px; }
+      .header { padding: 24px 16px !important; }
+      .body { padding: 16px !important; }
+      .footer { padding: 20px 16px !important; }
+      .header h1 { font-size: 22px !important; }
+      .header p { font-size: 13px !important; }
+      .step-card { flex-direction: column !important; gap: 10px; }
+      .step-num { margin: 0; }
+      .section-title { font-size: 15px; margin: 20px 0 10px; }
+      .module-content { padding: 14px 12px; }
+      .quick-item, .quota-box { font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ Lightbox 遮罩：点击图片放大查看 ══ -->
+<div class="lightbox-overlay" id="lightbox" onclick="closeLightbox(event)">
+  <div class="lightbox-close" onclick="closeLightboxDirect()">✕</div>
+  <img id="lightbox-img" src="" alt="图片预览" onclick="event.stopPropagation()" />
+  <div class="lightbox-hint">点击空白处或按 ESC 关闭</div>
+</div>
+
+<div class="page">
+
+  <!-- 页头 -->
+  <div class="header">
+    <div class="header-top">
+      <div class="tag">电子税务局 · 发票管理</div>
+      <a href="../index.html" class="btn-back">← 返回目录</a>
+    </div>
+
+    <h1>🧾 2.1 蓝字发票开具</h1>
+    <p>
+      电子税务局蓝字发票开具操作指南<br />
+      涵盖登录入口、发票额度确认、发票类型选择、发票信息填写、校验开具及发票交付
+    </p>
+
+    <div class="badges">
+      <span class="badge">🖥️ 电子税务局</span>
+      <span class="badge">☎️ 12366</span>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <!-- 00 导读 -->
+    <details class="module-card" open>
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>💡 办理前先看</span>
+      </summary>
+      <div class="module-content">
+        <div class="info-box">
+          尊敬的纳税人：您好！为方便您在电子税务局顺利开具蓝字发票，我们将操作流程与发票额度规则整合梳理如下，您可按步骤操作。
+        </div>
+
+        <div class="quick-list" style="margin-top: 14px;">
+          <div class="quick-item">① 请使用企业法人、财务负责人、开票员，或拥有发票业务权限的办税员账号办理。</div>
+          <div class="quick-item">② 开票前请先查看本月可用发票剩余额度，额度不足时需先办理额度调整。</div>
+          <div class="quick-item">③ 填写完成后，系统会自动校验；校验通过后生成电子发票，校验不通过需按提示修改。</div>
+        </div>
+      </div>
+    </details>
+
+    <!-- 01 登录电子税务局 -->
+    <details class="module-card" open>
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>① 登录电子税务局，进入蓝字发票开具</span>
+      </summary>
+      <div class="module-content">
+        <div class="path-box">
+          <span class="path-label">操作路径：</span>
+          <span class="node">我要办税</span>
+          <span class="arrow">→</span>
+          <span class="node">发票使用</span>
+          <span class="arrow">→</span>
+          <span class="node">发票开具</span>
+          <span class="arrow">→</span>
+          <span class="node">蓝字发票开具</span>
+        </div>
+
+        <div class="steps" style="margin-top: 14px;">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <div class="step-text">
+                请企业法人、财务负责人、开票员，或拥有发票业务权限的办税员，以<strong>企业业务身份</strong>登录电子税务局。
+                登录完成后，依次点击菜单进入 <strong>【蓝字发票开具】</strong> 功能界面。
+              </div>
+              <img src="images/2.1/2.1-01-entry.png"
+                   alt="我要办税-发票使用-发票开具-蓝字发票开具入口"
+                   class="step-img"
+                   loading="lazy"
+                   onclick="openLightbox(this); event.stopPropagation();" />
+              <div class="img-caption">图片：蓝字发票开具入口。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- 02 确认发票额度 -->
+    <details class="module-card" open>
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>② 确认本月可用发票额度</span>
+      </summary>
+      <div class="module-content">
+        <div class="info-box">
+          进入蓝字发票开具概览界面后，系统会自动展示您本月可用的发票剩余额度。额度规则分以下两种情况：
+        </div>
+
+        <div class="quota-box">
+          <strong>（一）完成上月申报前：</strong><br />
+          可用额度为<strong>「上月月底实际剩余发票额度」</strong>与<strong>「本月月初发票额度」</strong>中的较小值，这个额度可以在完成上月所属期申报前使用。
+        </div>
+
+        <div class="quota-box">
+          <strong>（二）完成上月申报后：</strong><br />
+          当您完成上月所属期增值税申报且申报成功后，页面的可用剩余额度（申报前）会自动更新为可用剩余额度（申报后）。
+          <div class="formula-card">计算公式：本月月初发票额度 − 本月已实际开票金额</div>
+        </div>
+
+        <div class="steps" style="margin-top: 14px;">
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <div class="step-text">
+                在概览界面查看 <strong>【可用发票额度】</strong>。确认额度足够后，点击页面中的 <strong>【立即开票】</strong>。
+              </div>
+              <img src="images/2.1/2.1-02-quota-and-open.png"
+                   alt="蓝字发票开具概览界面和立即开票按钮"
+                   class="step-img"
+                   loading="lazy"
+                   onclick="openLightbox(this); event.stopPropagation();" />
+              <div class="img-caption">图片：可用发票额度及“立即开票”入口。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- 03 选择发票类型 -->
+    <details class="module-card" open>
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>③ 选择发票类型并开票</span>
+      </summary>
+      <div class="module-content">
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-text">
+              点击页面中的 <strong>【立即开票】</strong> 按钮后，会弹出选择框。您需要根据实际业务选择对应的发票类型
+              （<strong>增值税专用发票 / 增值税普通发票</strong>）以及对应票种标签。
+            </div>
+
+            <img src="images/2.1/2.1-03-select-invoice-type.png"
+                 alt="选择电子发票、纸质发票、票类及特殊业务"
+                 class="step-img"
+                 loading="lazy"
+                 onclick="openLightbox(this); event.stopPropagation();" />
+            <div class="img-caption">图片：立即开票后选择发票类型。</div>
+
+            <div class="tip-box">
+              💡 <strong>提示：</strong>差额征税、特定业务、减按征税这三个项目为非必填项，您可根据实际业务情况选择是否填写。
+            </div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- 04 填写发票信息 -->
+    <details class="module-card" open>
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>④ 填写发票信息</span>
+      </summary>
+      <div class="module-content">
+        <div class="info-box">
+          进入填写界面后，系统默认是<strong>「表单视图」</strong>，您也可以点击右上角的<strong>「切换至票样视图」</strong>切换成票样样式填写。
+          填写内容主要包括购买方信息、开票项目信息、支付信息、备注信息、经办人信息几部分。
+        </div>
+
+        <div class="steps" style="margin-top: 14px;">
+          <div class="step-card">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <div class="sub-title">（一）购买方名称</div>
+              <div class="step-text">
+                可以输入关键字进行模糊查询选择，也可以点击名称栏右侧的图标，选择您提前维护好的常用客户。
+                如需使用常用客户，请先在信息维护模块完成客户信息维护。
+              </div>
+
+              <div class="sub-title">（二）开票项目信息</div>
+              <div class="step-text">
+                可以手工填写，系统会通过智能匹配为您提供相似选项参考；也可以自行选择商品编码（需要先完成项目信息维护），
+                或点击项目名称录入框后的按钮，在右侧弹出的 <strong>「项目信息查询」</strong> 页面，选择您已经维护好的项目信息。
+              </div>
+
+              <img src="images/2.1/2.1-04-fill-item-info.png"
+                   alt="填写开票项目信息和选择商品编码"
+                   class="step-img"
+                   loading="lazy"
+                   onclick="openLightbox(this); event.stopPropagation();" />
+              <div class="img-caption">图片：填写项目名称，系统匹配商品编码。</div>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <div class="sub-title">（三）支付信息</div>
+              <div class="step-text">
+                支付信息属于非必填项。如果您需要填写，可以选择支付渠道并录入交易单号。
+              </div>
+
+              <div class="sub-title">（四）备注信息</div>
+              <div class="step-text">
+                备注信息可根据业务需求自行填写。部分特殊业务如建筑服务、运输服务等，可能需要按规定填写备注内容。
+              </div>
+
+              <div class="sub-title">（五）经办信息</div>
+              <div class="step-text">
+                需要完整填写购买方经办人姓名、经办人国籍（地区）、经办人证件类型、经办人证件号码，以及自然人纳税人识别号。
+              </div>
+
+              <img src="images/2.1/2.1-05-remark-and-handler.png"
+                   alt="填写备注信息和经办人信息"
+                   class="step-img"
+                   loading="lazy"
+                   onclick="openLightbox(this); event.stopPropagation();" />
+              <div class="img-caption">图片：备注信息和经办人信息填写区域。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- 05 校验并开具发票 -->
+    <details class="module-card" open>
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>⑤ 校验并开具发票</span>
+      </summary>
+      <div class="module-content">
+        <div class="step-card">
+          <div class="step-num">6</div>
+          <div class="step-content">
+            <div class="step-text">
+              所有发票信息填写完毕并确认无误后，点击页面下方的 <strong>【发票开具】</strong> 按钮。
+              系统会自动对发票填写规范、业务逻辑进行校验。
+            </div>
+
+            <div class="quick-list">
+              <div class="quick-item">
+                ✅ <strong>校验通过：</strong>系统会自动完成发票赋码、加盖电子印章，生成电子发票，同时提示您开票成功。
+              </div>
+              <div class="quick-item">
+                ⚠️ <strong>校验不通过：</strong>页面会直接展示校验不通过的原因，您可根据提示修改后重新提交校验。
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- 06 发票交付 -->
+    <details class="module-card" open>
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>⑥ 发票交付</span>
+      </summary>
+      <div class="module-content">
+        <div class="step-card">
+          <div class="step-num">7</div>
+          <div class="step-content">
+            <div class="step-text">
+              开票成功后，发票交付可参考以下方式：
+            </div>
+
+            <div class="quick-list">
+              <div class="quick-item">
+                （一）如果受票方是企业单位，系统会自动将发票发送至受票方电子税务局的税务数字账户中，无需您手动操作。
+              </div>
+              <div class="quick-item">
+                （二）您也可以根据自身需求，选择通过邮箱交付、二维码交付、下载后交付等其他方式，将发票交付给购买方。
+              </div>
+            </div>
+
+            <img src="images/2.1/2.1-06-success-and-delivery.png"
+                 alt="开票成功后邮箱交付、二维码交付、下载和打印入口"
+                 class="step-img"
+                 loading="lazy"
+                 onclick="openLightbox(this); event.stopPropagation();" />
+            <div class="img-caption">图片：开票成功及发票交付方式。</div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- 07 温馨提示 -->
+    <details class="module-card" open>
+      <summary class="module-header">
+        <span class="toggle-icon">▶</span>
+        <span>✅ 完成提示</span>
+      </summary>
+      <div class="module-content">
+        <div class="tip-box">
+          按照以上步骤操作，您就可以在电子税务局完成蓝字发票的开具啦！如有其他问题，可咨询主管税务机关或拨打 <strong>12366</strong> 纳税服务热线。
+        </div>
+      </div>
+    </details>
+
+  </div>
+
+  <!-- 页脚 -->
+  <div class="footer">
+    如操作过程中遇到问题，请拨打纳税服务热线 <strong>12366</strong> 获取帮助
+    <div style="margin-top: 12px;">
+      <a href="../index.html" class="btn-footer-back">← 返回目录</a>
+    </div>
+  </div>
+
+</div>
+
+<script src="../assets/lightbox.js"></script>
+</body>
+</html>

@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>2.3 发票额度调整申请 · 操作指引</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <link rel="stylesheet" href="../assets/mobile-extra.css" />
+
+  <style>
+    /* =========================================================
+       2.3 发票额度调整申请：本页补充样式
+       说明：公共样式仍以 ../assets/style.css 为主，本处只写页面专属样式
+    ========================================================= */
+
+    /* ---------- 折叠模块 ---------- */
+    summary.module-header::-webkit-details-marker {
+      display: none;
+    }
+
+    summary.module-header::marker {
+      content: "";
+    }
+
+    details.module-card {
+      margin: 12px 0;
+      overflow: hidden;
+      background: #ffffff;
+      border: 1px solid #e8f3fb;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(33, 118, 199, 0.08);
+    }
+
+    details.module-card[open] {
+      box-shadow: 0 4px 16px rgba(33, 118, 199, 0.15);
+    }
+
+    summary.module-header {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      padding: 14px 16px;
+      font-weight: 700;
+      color: #1a4a7a;
+      list-style: none;
+      cursor: pointer;
+      user-select: none;
+      background: #f4f9fd;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    summary.module-header:hover {
+      background: #e8f3fb;
+    }
+
+    .toggle-icon {
+      font-size: 12px;
+      color: #2176c7;
+      transition: transform 0.2s;
+    }
+
+    details[open] .toggle-icon {
+      transform: rotate(90deg);
+    }
+
+    .module-content {
+      padding: 16px;
+      border-top: 1px solid #e8f3fb;
+    }
+
+    /* ---------- 内容提示 ---------- */
+    .checklist,
+    .note-list,
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .checkitem,
+    .note-item {
+      padding: 10px 14px;
+      line-height: 1.8;
+      background: #f4f9fd;
+      border-left: 4px solid #4a90d9;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .guide-note {
+      margin: 12px 0;
+      padding: 12px 16px;
+      line-height: 1.8;
+      color: #7c2d12;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      border-left: 4px solid #f97316;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .path-box {
+      padding: 14px;
+      font-weight: 700;
+      line-height: 1.8;
+      color: #1a4a7a;
+      background: #eef7ff;
+      border: 1px solid #b9dcf5;
+      border-radius: 8px;
+    }
+
+    .mini-title {
+      margin: 16px 0 8px;
+      padding-left: 10px;
+      font-weight: 700;
+      color: #1a4a7a;
+      border-left: 4px solid #4a90d9;
+    }
+
+    /* ---------- 步骤卡片 ---------- */
+    .step-card {
+      display: flex;
+      gap: 14px;
+      padding: 16px;
+      background: #f8fcff;
+      border: 1px solid #d7ecfb;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(33, 118, 199, 0.06);
+    }
+
+    .step-num {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      min-width: 38px;
+      font-weight: 700;
+      color: #ffffff;
+      background: #2176c7;
+      border-radius: 50%;
+      box-shadow: 0 3px 8px rgba(33, 118, 199, 0.25);
+    }
+
+    .step-content {
+      flex: 1;
+      min-width: 0;
+      line-height: 1.9;
+      color: #2c3e50;
+    }
+
+    .step-img {
+      display: block;
+      width: 100%;
+      max-width: 860px;
+      margin: 10px 0 0;
+      border: 1px solid #b9dcf5;
+      border-radius: 8px;
+      cursor: zoom-in;
+    }
+
+    .image-placeholder {
+      margin-top: 10px;
+      padding: 12px 14px;
+      font-size: 13px;
+      font-style: italic;
+      line-height: 1.8;
+      color: #3d6080;
+      background: #e8f3fb;
+      border: 1.5px dashed #7ab8da;
+      border-radius: 6px;
+    }
+
+    /* ---------- 表格 ---------- */
+    .scroll-table {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .scroll-table table {
+      min-width: 680px;
+    }
+
+    /* ---------- 手机端 ---------- */
+    @media (max-width: 768px) {
+      body {
+        padding: 10px !important;
+      }
+
+      .page {
+        max-width: 100% !important;
+        border-radius: 8px;
+      }
+
+      .header {
+        padding: 24px 16px !important;
+      }
+
+      .body {
+        padding: 16px !important;
+      }
+
+      .footer {
+        padding: 20px 16px !important;
+      }
+
+      .header h1 {
+        font-size: 22px !important;
+      }
+
+      .header p {
+        font-size: 13px !important;
+      }
+
+      .module-content {
+        padding: 14px 12px;
+      }
+
+      .step-card {
+        flex-direction: column;
+        gap: 10px;
+        padding: 14px;
+      }
+
+      .period-table,
+      .tier-table {
+        font-size: 12px;
+      }
+
+      .period-table th,
+      .period-table td,
+      .tier-table th,
+      .tier-table td {
+        padding: 8px 6px;
+        word-break: break-word;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 图片点击放大遮罩 -->
+  <div class="lightbox-overlay" id="lightbox" onclick="closeLightbox(event)">
+    <div class="lightbox-close" onclick="closeLightboxDirect()">✕</div>
+    <img id="lightbox-img" src="" alt="图片预览" onclick="event.stopPropagation()" />
+    <div class="lightbox-hint">点击空白处或按 ESC 关闭</div>
+  </div>
+
+  <div class="page">
+    <!-- 页头 -->
+    <div class="header">
+      <div class="header-top">
+        <div class="tag">电子税务局 · 发票使用</div>
+        <a href="../index.html" class="btn-back">← 返回目录</a>
+      </div>
+
+      <h1>📈 2.3 发票额度调整申请</h1>
+      <p>可用发票额度不足时，如何在电子税务局申请调整额度</p>
+
+      <div class="badges">
+        <span class="badge">🧾 发票业务</span>
+        <span class="badge">☎️ 12366</span>
+      </div>
+    </div>
+
+    <div class="body">
+      <!-- 01 适用对象 -->
+      <details class="module-card" open>
+        <summary class="module-header">
+          <span class="toggle-icon">▶</span>
+          <span>✅ 适用对象</span>
+        </summary>
+
+        <div class="module-content">
+          <div class="info-box">
+            适用于已具备发票开具资格，但在开具蓝字发票时发现可用发票额度不足，
+            需要通过电子税务局申请调整发票额度的纳税人。
+          </div>
+        </div>
+      </details>
+
+      <!-- 02 先看这3句话 -->
+      <details class="module-card" open>
+        <summary class="module-header">
+          <span class="toggle-icon">▶</span>
+          <span>💡 先看这3句话</span>
+        </summary>
+
+        <div class="module-content">
+          <div class="checklist">
+            <div class="checkitem">① 开票前先看可用发票额度，额度不够时，可能无法继续开具发票。</div>
+            <div class="checkitem">② 发票额度调整一般通过：我要办税 → 发票使用 → 发票额度调整申请 办理。</div>
+            <div class="checkitem">③ 申请时要如实填写申请理由、调整额度、有效期等信息，必要时上传合同、订单、销售证明等资料。</div>
+          </div>
+        </div>
+      </details>
+
+      <!-- 03 什么情况下需要申请 -->
+      <details class="module-card" open>
+        <summary class="module-header">
+          <span class="toggle-icon">▶</span>
+          <span>📌 什么情况下需要申请额度调整？</span>
+        </summary>
+
+        <div class="module-content">
+          <div class="scroll-table">
+            <table class="period-table">
+              <thead>
+                <tr>
+                  <th>常见情形</th>
+                  <th>通俗理解</th>
+                  <th>处理建议</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>本月可用额度不足</td>
+                  <td>本月实际需要开票金额超过当前可用额度</td>
+                  <td>可申请临时或按期提高额度</td>
+                </tr>
+                <tr>
+                  <td>近期业务量明显增加</td>
+                  <td>新增大额订单、集中结算、客户要求集中开票</td>
+                  <td>准备合同、订单、收款或交易证明等材料</td>
+                </tr>
+                <tr>
+                  <td>完成申报后额度仍不足</td>
+                  <td>完成上月增值税申报后，系统更新后的额度仍不够使用</td>
+                  <td>根据实际经营需要申请调整</td>
+                </tr>
+                <tr>
+                  <td>系统提示超过授信额度</td>
+                  <td>开具发票时系统提示额度不足或超过当前可用额度</td>
+                  <td>先核对已开票金额，再提交额度调整申请</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </details>
+
+      <!-- 04 办理路径 -->
+      <details class="module-card" open>
+        <summary class="module-header">
+          <span class="toggle-icon">▶</span>
+          <span>🧭 办理路径</span>
+        </summary>
+
+        <div class="module-content">
+          <div class="path-box">
+            电子税务局 → 我要办税 → 发票使用 → 发票额度调整申请
+          </div>
+        </div>
+      </details>
+
+      <!-- 05 操作步骤 -->
+      <details class="module-card" open>
+        <summary class="module-header">
+          <span class="toggle-icon">▶</span>
+          <span>📝 具体操作步骤</span>
+        </summary>
+
+        <div class="module-content">
+          <div class="steps">
+            <!-- 步骤1 -->
+            <div class="step-card">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <strong>登录电子税务局，进入【我要办税】。</strong><br />
+                请以企业业务身份登录电子税务局，进入发票使用相关功能。
+                <img
+                  src="images/2.3/2.3-01-entry.png"
+                  alt="发票额度调整申请入口"
+                  class="step-img"
+                  loading="lazy"
+                  onclick="openLightbox(this); event.stopPropagation();"
+                />
+
+              </div>
+            </div>
+
+            <!-- 步骤2 -->
+            <div class="step-card">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <strong>点击【发票额度调整申请】，进入申请页面。</strong><br />
+                系统通常会展示当前纳税人基本信息、当前额度、可用额度等信息。
+                <img
+                  src="images/2.3/2.3-02-application-home.png"
+                  alt="发票额度调整申请页面"
+                  class="step-img"
+                  loading="lazy"
+                  onclick="openLightbox(this); event.stopPropagation();"
+                />
+
+              </div>
+            </div>
+
+            <!-- 步骤3：新增申请 -->
+            <div class="step-card">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <strong>点击【新增申请】，进入新增额度调整申请填写界面。</strong><br />
+                如页面已有历史申请记录，请注意区分当前办理事项，确认点击的是新增申请入口。
+                <img
+                  src="images/2.3/2.3-03-new-application.png"
+                  alt="新增发票额度调整申请"
+                  class="step-img"
+                  loading="lazy"
+                  onclick="openLightbox(this); event.stopPropagation();"
+                />
+
+              </div>
+            </div>
+
+            <!-- 步骤4：填写申请 -->
+            <div class="step-card">
+              <div class="step-num">4</div>
+              <div class="step-content">
+                <strong>根据实际需要选择申请类型，并填写申请调整额度、申请有效期、申请理由等内容。</strong>
+                <div class="guide-note">
+                  建议申请理由写清楚：近期业务增长原因、预计开票金额、主要客户或合同情况。
+                  不要随意填写“额度不够”等过于简单的理由。
+                </div>
+                <img
+                  src="images/2.3/2.3-04-fill-application.png"
+                  alt="填写发票额度调整申请信息"
+                  class="step-img"
+                  loading="lazy"
+                  onclick="openLightbox(this); event.stopPropagation();"
+                />
+
+              </div>
+            </div>
+
+            <!-- 步骤5：上传并提交 -->
+            <div class="step-card">
+              <div class="step-num">5</div>
+              <div class="step-content">
+                <strong>上传资料并提交申请。</strong><br />
+                按系统提示上传相关资料，核对填写内容和上传资料，确认无误后点击【提交】。
+                提交后请留意办理进度和税务机关反馈。
+                <div class="guide-note">
+                  常见资料包括合同、订单、销售清单、收款凭证、业务说明等，
+                  具体以页面提示和主管税务机关要求为准。
+                </div>
+                <img
+                  src="images/2.3/2.3-05-upload-and-submit.png"
+                  alt="上传资料并提交发票额度调整申请"
+                  class="step-img"
+                  loading="lazy"
+                  onclick="openLightbox(this); event.stopPropagation();"
+                />
+
+              </div>
+            </div>
+
+            <!-- 步骤6：查询结果 -->
+            <div class="step-card">
+              <div class="step-num">6</div>
+              <div class="step-content">
+                <strong>查询审核结果，并确认额度是否更新。</strong><br />
+                提交申请后，可在电子税务局相关办税进度或申请记录中查看审核状态。
+                审核通过后，再回到蓝字发票开具页面确认可用发票额度是否已更新。
+                <img
+                  src="images/2.3/2.3-06-query-result.png"
+                  alt="查询发票额度调整审核结果"
+                  class="step-img"
+                  loading="lazy"
+                  onclick="openLightbox(this); event.stopPropagation();"
+                />
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- 06 填写要点 -->
+      <details class="module-card">
+        <summary class="module-header">
+          <span class="toggle-icon">▶</span>
+          <span>✍️ 填写要点</span>
+        </summary>
+
+        <div class="module-content">
+          <div class="scroll-table">
+            <table class="period-table">
+              <thead>
+                <tr>
+                  <th>填写项目</th>
+                  <th>怎么填更清楚</th>
+                  <th>注意事项</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>申请调整额度</td>
+                  <td>根据近期真实开票需求填写</td>
+                  <td>建议与合同金额、订单金额、预计销售额相匹配</td>
+                </tr>
+                <tr>
+                  <td>申请有效期</td>
+                  <td>根据临时业务或持续经营需要选择</td>
+                  <td>临时大额业务不建议长期申请过高额度</td>
+                </tr>
+                <tr>
+                  <td>申请理由</td>
+                  <td>说明业务背景、客户情况、预计开票金额</td>
+                  <td>理由应真实、具体、可核实</td>
+                </tr>
+                <tr>
+                  <td>上传资料</td>
+                  <td>合同、订单、销售清单、收款凭证等</td>
+                  <td>资料应清晰完整，金额与申请额度尽量对应</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </details>
+
+      <!-- 07 常见问题 -->
+      <details class="module-card">
+        <summary class="module-header">
+          <span class="toggle-icon">▶</span>
+          <span>❓ 常见问题</span>
+        </summary>
+
+        <div class="module-content">
+          <div class="note-list">
+            <div class="note-item"><strong>提交申请后额度会马上提高吗？</strong><br />不一定。需以税务机关审核结果和电子税务局页面展示为准。</div>
+            <div class="note-item"><strong>申请被退回怎么办？</strong><br />查看退回原因，按提示补充或修改资料后重新提交。</div>
+            <div class="note-item"><strong>额度调高后是否不用申报纳税？</strong><br />不是。额度调整只影响可开票额度，开票后仍应按规定申报缴税。</div>
+            <div class="note-item"><strong>只差一点额度也要申请吗？</strong><br />如果系统提示额度不足且确需开票，可按实际情况申请调整。</div>
+          </div>
+        </div>
+      </details>
+
+      <!-- 08 温馨提醒 -->
+      <details class="module-card" open>
+        <summary class="module-header">
+          <span class="toggle-icon">▶</span>
+          <span>⚠️ 温馨提醒</span>
+        </summary>
+
+        <div class="module-content">
+          <div class="note-list">
+            <div class="note-item">申请额度应基于真实业务，不要虚构业务、虚增合同金额。</div>
+            <div class="note-item">额度调整通过后，仍应按照真实交易内容、金额和税率开具发票。</div>
+            <div class="note-item">开票金额增加可能影响增值税及附加税费、所得税等申报，请同步关注申报义务。</div>
+            <div class="note-item">具体办理要求以电子税务局页面展示、主管税务机关要求及现行政策规定为准。</div>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <!-- 页脚 -->
+    <div class="footer">
+      本页面供纳税人办理发票额度调整申请学习参考。具体办理以电子税务局页面展示、主管税务机关要求及现行政策规定为准。
+    </div>
+  </div>
+
+  <script src="../assets/lightbox.js"></script>
+</body>
+</html>
